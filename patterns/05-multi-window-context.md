@@ -1,5 +1,13 @@
 # Pattern 5: Multi-Window Context Management
 
+![Claude](https://img.shields.io/badge/Claude-✅-10b981?style=flat-square)
+![GPT](https://img.shields.io/badge/GPT_(Agents_SDK)-⚠️_Sessions-f59e0b?style=flat-square)
+![Gemini](https://img.shields.io/badge/Gemini_(ADK)-⚠️_ctx.state-f59e0b?style=flat-square)
+![LangGraph](https://img.shields.io/badge/LangGraph-✅_Checkpointing-10b981?style=flat-square)
+![AutoGen](https://img.shields.io/badge/AutoGen-⚠️-f59e0b?style=flat-square)
+
+> **Partial support on some platforms**: Claude and LangGraph have native multi-window/checkpointing. Others require custom state management.
+
 > Persist state across context windows for long-running agentic tasks.
 
 ---

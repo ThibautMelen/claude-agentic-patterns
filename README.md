@@ -77,6 +77,26 @@ mindmap
 
 ---
 
+## Cross-Platform Compatibility
+
+These patterns were initially documented from Claude/Anthropic sources but many apply across different AI frameworks. Here's the compatibility matrix:
+
+| Pattern | Claude | GPT (Agents SDK) | Gemini (ADK) | LangGraph | AutoGen |
+|:--------|:------:|:----------------:|:------------:|:---------:|:-------:|
+| 01 - Subagent Orchestration | ✅ | ✅ Handoffs | ✅ Multi-agent | ✅ Subgraphs | ✅ |
+| 02 - Progressive Skills | ✅ | ❌ | ❌ | ❌ | ❌ |
+| 03 - Parallel Tool Calling | ✅ | ✅ | ✅ ParallelAgent | ✅ Fan-out | ✅ |
+| 04 - Master-Clone | ✅ | ✅ Dynamic | ✅ Custom agents | ✅ Send API | ✅ |
+| 05 - Multi-Window Context | ✅ | ⚠️ Sessions | ⚠️ ctx.state | ✅ Checkpointing | ⚠️ |
+| 06 - Programmatic Orchestration | ✅ | ✅ | ✅ Workflow Agents | ✅ StateGraph | ✅ |
+| 07 - Wizard Workflows | ✅ | ⚠️ | ✅ Tool Confirm | ✅ interrupt() | ⚠️ |
+
+**Legend:** ✅ Native support | ⚠️ Partial/Adaptable | ❌ Not supported
+
+> **Note:** Pattern 02 (Progressive Skills) uses Claude Code's unique `.md`-based skill system with progressive loading. Other frameworks have "tools" but not this specific pattern.
+
+---
+
 ## Quick Start
 
 ### Pattern Selection Guide

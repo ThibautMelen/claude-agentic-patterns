@@ -1,5 +1,11 @@
 # Pattern 1: Subagent Orchestration
 
+![Claude](https://img.shields.io/badge/Claude-✅-10b981?style=flat-square)
+![GPT](https://img.shields.io/badge/GPT_(Agents_SDK)-✅_Handoffs-10b981?style=flat-square)
+![Gemini](https://img.shields.io/badge/Gemini_(ADK)-✅_Multi--agent-10b981?style=flat-square)
+![LangGraph](https://img.shields.io/badge/LangGraph-✅_Subgraphs-10b981?style=flat-square)
+![AutoGen](https://img.shields.io/badge/AutoGen-✅-10b981?style=flat-square)
+
 > Delegate specialized tasks to isolated agents with their own context, tools, and instructions.
 
 ---

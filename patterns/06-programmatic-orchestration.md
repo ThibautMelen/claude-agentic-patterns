@@ -1,5 +1,11 @@
 # Pattern 6: Programmatic Tool Orchestration
 
+![Claude](https://img.shields.io/badge/Claude-✅-10b981?style=flat-square)
+![GPT](https://img.shields.io/badge/GPT_(Agents_SDK)-✅-10b981?style=flat-square)
+![Gemini](https://img.shields.io/badge/Gemini_(ADK)-✅_Workflow_Agents-10b981?style=flat-square)
+![LangGraph](https://img.shields.io/badge/LangGraph-✅_StateGraph-10b981?style=flat-square)
+![AutoGen](https://img.shields.io/badge/AutoGen-✅-10b981?style=flat-square)
+
 > Write code to orchestrate multiple tool calls instead of sequential inference passes.
 
 ---

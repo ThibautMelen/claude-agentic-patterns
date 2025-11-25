@@ -1,5 +1,13 @@
 # Pattern 2: Agent Skills & Progressive Disclosure
 
+![Claude](https://img.shields.io/badge/Claude-✅-10b981?style=flat-square)
+![GPT](https://img.shields.io/badge/GPT_(Agents_SDK)-❌-ef4444?style=flat-square)
+![Gemini](https://img.shields.io/badge/Gemini_(ADK)-❌-ef4444?style=flat-square)
+![LangGraph](https://img.shields.io/badge/LangGraph-❌-ef4444?style=flat-square)
+![AutoGen](https://img.shields.io/badge/AutoGen-❌-ef4444?style=flat-square)
+
+> **Claude-only pattern**: This pattern uses Claude Code's unique `.md`-based skill system with progressive loading. Other frameworks have "tools" but not this specific filesystem-based progressive disclosure pattern.
+
 > Modular capabilities that extend Claude with domain-specific expertise through on-demand loading.
 
 ---

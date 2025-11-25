@@ -1,5 +1,13 @@
 # Pattern 7: Wizard-Style Workflows
 
+![Claude](https://img.shields.io/badge/Claude-✅-10b981?style=flat-square)
+![GPT](https://img.shields.io/badge/GPT_(Agents_SDK)-⚠️-f59e0b?style=flat-square)
+![Gemini](https://img.shields.io/badge/Gemini_(ADK)-✅_Tool_Confirm-10b981?style=flat-square)
+![LangGraph](https://img.shields.io/badge/LangGraph-✅_interrupt()-10b981?style=flat-square)
+![AutoGen](https://img.shields.io/badge/AutoGen-⚠️-f59e0b?style=flat-square)
+
+> **Partial support on some platforms**: Claude, Gemini ADK, and LangGraph have native human-in-the-loop. Others require custom implementation.
+
 > Multi-step processes with explicit user confirmation at each phase.
 
 ---
