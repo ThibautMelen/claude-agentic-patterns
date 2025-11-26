@@ -1,4 +1,4 @@
-<h1 align="center">Claude Code Agentic Patterns</h1>
+<h1 align="center">Agentic : Patterns / Workflows / Use Cases</h1>
 
 <p align="center">
   <strong>Design patterns for building agentic AI systems with Claude Code CLI</strong>
@@ -6,6 +6,12 @@
 
 <p align="center">
   <em>Curated collection of validated orchestration patterns from official Anthropic documentation</em>
+</p>
+
+<p align="center">
+  <a href="https://github.com/hesreallyhim/awesome-claude-code">
+    <img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Claude Code"/>
+  </a>
 </p>
 
 <p align="center">
@@ -191,6 +197,66 @@ Long-Running (>10 min)        → 🖥️ Multi-Window Context
 
 ---
 
+## Repository Structure
+
+```
+.
+├── README.md                           # This file
+├── 00-OVERVIEW.md                      # Entry point, quick reference
+├── 01-OFFICIAL-TERMINOLOGY.md          # Components definitions
+├── 02-LAYER-ARCHITECTURE.md            # 5-Layer system architecture
+├── 03-ANTHROPIC-RESEARCH-PATTERNS.md   # 6 theoretical patterns
+├── 04-CLAUDE-CODE-PATTERNS.md          # 7 implementation patterns
+├── 05-USE-CASES.md                     # Real-world examples
+├── 06-PATTERN-SELECTION-GUIDE.md       # Decision trees
+├── 07-MAPPING-GLOSSARY.md              # Cross-reference & definitions
+└── 08-STYLE-GUIDE.md                   # Colors, emojis, Mermaid standards
+```
+
+---
+
+## Contributing
+
+We welcome contributions! This repository aims to be the definitive collection of Claude agentic patterns.
+
+### Ways to Contribute
+
+- **Add new patterns** - Document patterns from Anthropic sources
+- **Improve existing patterns** - Add examples, clarify explanations
+- **Fix issues** - Correct errors, update outdated information
+- **Add translations** - Help make patterns accessible globally
+
+### Contribution Requirements
+
+All contributions must:
+
+1. **Reference official sources** - Link to Anthropic docs, blog posts, or official examples
+2. **Include code examples** - Provide working, tested code snippets
+3. **Follow the pattern format** - Use the established template structure
+4. **Add Mermaid diagrams** - Visual explanations where helpful
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+---
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.
+
+---
+
 <p align="center">
-  <sub>Built with Claude Code | Based on official documentation | November 2025</sub>
+  <sub>Built with Claude Code | Based on official documentation | November 2025</sub><br/>
+  <sub>Independent community resource - not affiliated with Anthropic</sub>
+</p>
+
+<p align="center">
+  <a href="https://github.com/ThibautMelen">
+    <img src="https://avatars.githubusercontent.com/u/20891897?s=200&v=4" alt="ThibautMelen" width="40"/>
+  </a>
+  &nbsp;&nbsp;❤️&nbsp;&nbsp;
+  <a href="https://github.com/SuperNovae-studio">
+    <img src="https://avatars.githubusercontent.com/u/33066282?s=200&v=4" alt="SuperNovae Studio" width="40"/>
+  </a>
+  &nbsp;&nbsp;🏴‍☠️
 </p>
