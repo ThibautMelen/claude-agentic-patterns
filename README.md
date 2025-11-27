@@ -38,8 +38,8 @@ mindmap
       🚦 Routing
       🛤️ Parallelization
       🎭 Orchestrator-Workers
-      👨‍🔧 Evaluator-Optimizer
-      🦅 Autonomous Agents
+      🩻 Evaluator-Optimizer
+      🐉 Autonomous Agents
     Claude Code Impl 7
       🎪 Subagent Orchestration
       🎓 Progressive Skills
@@ -76,8 +76,8 @@ This documentation covers **two complementary pattern sets**:
 | 🚦 Routing | Direct inputs to specialized handlers |
 | 🛤️ Parallelization | Execute independent tasks simultaneously |
 | 🎭 Orchestrator-Workers | Central coordinator with specialized workers |
-| 👨‍🔧 Evaluator-Optimizer | Iterative improvement via feedback loops |
-| 🦅 Autonomous Agents | Self-directed with minimal human guidance |
+| 🩻 Evaluator-Optimizer | Iterative improvement via feedback loops |
+| 🐉 Autonomous Agents | Self-directed with minimal human guidance |
 
 > Source: Anthropic's "Building Effective Agents" (Dec 2024)
 

@@ -60,9 +60,9 @@
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
 │ 🎭 Orchestrator-Workers │ Subagent Orchestration   │ Task tool + agents/*.md    │
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
-│ 👨‍🔧 Evaluator-Optimizer │ (Loop with validation)   │ Iterative tool calls       │
+│ 🩻 Evaluator-Optimizer │ (Loop with validation)   │ Iterative tool calls       │
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
-│ 🦅 Autonomous Agents  │ Multi-Window Context     │ Checkpointing              │
+│ 🐉 Autonomous Agents  │ Multi-Window Context     │ Checkpointing              │
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
 │ 🧙 Human-in-the-Loop  │ Wizard Workflows         │ AskUserQuestion tool       │
 └───────────────────────┴──────────────────────────┴────────────────────────────┘
@@ -91,7 +91,7 @@ AskUserQuestion(questions=[{
 }])
 ```
 
-**🦅 Autonomous Agent**
+**🐉 Autonomous Agent**
 : An agent that independently plans, executes, and adapts without constant human guidance. Anthropic Research Pattern #6.
 
 ### C
@@ -112,7 +112,7 @@ AskUserQuestion(questions=[{
 
 ### E
 
-**👨‍🔧 Evaluator-Optimizer**
+**🩻 Evaluator-Optimizer**
 : Anthropic pattern for iterative improvement through generate-evaluate-feedback loops.
 
 **Execution Layer**
@@ -311,8 +311,8 @@ graph LR
         R2[🚦 Routing]
         R3[🛤️ Parallelization]
         R4[Orchestrator-Workers]
-        R5[👨‍🔧 Evaluator-Optimizer]
-        R6[🦅 Autonomous Agents]
+        R5[🩻 Evaluator-Optimizer]
+        R6[🐉 Autonomous Agents]
     end
 
     subgraph Implementation["Claude Code (7)"]

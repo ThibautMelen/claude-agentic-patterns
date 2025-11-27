@@ -248,8 +248,8 @@ Every element in a diagram answers: **WHO does WHAT?**
 | Routing | 🚦 |
 | Parallelization | 🛤️ |
 | Orchestrator-Workers | 🎭 |
-| Evaluator-Optimizer | 👨‍🔧 |
-| Autonomous Agents | 🦅 |
+| Evaluator-Optimizer | 🩻 |
+| Autonomous Agents | 🐉 |
 
 **Claude Code Implementation Patterns:**
 
@@ -313,8 +313,8 @@ Every element in a diagram answers: **WHO does WHAT?**
 │  🚦 Routing                        🎪 Subagent Orchestration                │
 │  🛤️ Parallelization                🚂 Parallel Tool Calling                 │
 │  🎭 Orchestrator-Workers           🧬 Master-Clone                          │
-│  👨‍🔧 Evaluator-Optimizer           🧙 Wizard Workflow                       │
-│  🦅 Autonomous Agents              🖥️ Multi-Window Context                  │
+│  🩻 Evaluator-Optimizer           🧙 Wizard Workflow                       │
+│  🐉 Autonomous Agents              🖥️ Multi-Window Context                  │
 │                                    🎓 Progressive Skills                    │
 │                                    🎛️ Programmatic Orchestration            │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -453,7 +453,7 @@ Input     Step 1    (internal)  Step 2    (internal)  Step 3     Output    User
                 └──► 🐦⚡ ──► 🐦📤 ──┘
 ```
 
-## Example: Autonomous Agent Flow (Pattern 6: 🦅)
+## Example: Autonomous Agent Flow (Pattern 6: 🐉)
 
 ```
 🙋‍♀️📥 ──► 🐔📋 ──► 🐔⚡ ──► 🐔👀 ──► 🐔💭 ──┬──► 🐔🔄 ──► 🐔📋 (loop)
@@ -497,7 +497,7 @@ Goal       Plan      Act      Observe   Reflect │
 | 🛠️ | 🔧 | Native Tool |
 | 🖐️ | 💁‍♀️ | User Interaction Tool |
 
-> **Note:** 🦅 is only used for Pattern 6 title "🦅 Autonomous Agents", not as an acteur in diagrams.
+> **Note:** 🐉 is only used for Pattern 6 title "🐉 Autonomous Agents", not as an acteur in diagrams.
 
 ---
 

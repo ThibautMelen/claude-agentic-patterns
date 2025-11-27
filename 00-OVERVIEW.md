@@ -66,8 +66,8 @@
 │  💾 State                            🚦 Routing                             │
 │  ❓ AskUserQuestion                  🛤️ Parallelization                     │
 │                                      🎭 Orchestrator-Workers                │
-│  TOOLS                               👨‍🔧 Evaluator-Optimizer                 │
-│  ─────                               🦅 Autonomous Agents                   │
+│  TOOLS                               🩻 Evaluator-Optimizer                 │
+│  ─────                               🐉 Autonomous Agents                   │
 │  🔧 Native Tool                                                             │
 │  🔌 MCP Tool                         STATUS                                 │
 │  💁‍♀️ User Interaction                ──────                                 │
@@ -98,8 +98,8 @@
 │  │  • 🚦 Routing               │    │  • 🎪 Subagent Orchestration│        │
 │  │  • 🛤️ Parallelization       │    │  • 🎓 Progressive Skills    │        │
 │  │  • 🎭 Orchestrator-Workers  │    │  • 🚂 Parallel Tool Calling │        │
-│  │  • 👨‍🔧 Evaluator-Optimizer   │    │  • 🧬 Master-Clone          │        │
-│  │  • 🦅 Autonomous Agents     │    │  • 🖥️ Multi-Window Context  │        │
+│  │  • 🩻 Evaluator-Optimizer   │    │  • 🧬 Master-Clone          │        │
+│  │  • 🐉 Autonomous Agents     │    │  • 🖥️ Multi-Window Context  │        │
 │  │                             │    │  • 🎛️ Programmatic Orch.    │        │
 │  │  Source: "Building          │    │  • 🧙 Wizard Workflows      │        │
 │  │  Effective Agents" paper    │    │  Source: Claude Code CLI    │        │
@@ -245,8 +245,8 @@ mindmap
       🚦 Routing
       🛤️ Parallelization
       🎭 Orchestrator-Workers
-      👨‍🔧 Evaluator-Optimizer
-      🦅 Autonomous Agents
+      🩻 Evaluator-Optimizer
+      🐉 Autonomous Agents
     Implementation Patterns
       🏎️ Direct Execution
       🎪 Subagent Orchestration

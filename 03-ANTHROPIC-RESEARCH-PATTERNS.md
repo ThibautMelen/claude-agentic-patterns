@@ -22,8 +22,8 @@
 | 2 | [🚦 Routing](#pattern-2--routing) | Classification & dispatch |
 | 3 | [🛤️ Parallelization](#pattern-3-️-parallelization) | Concurrent execution |
 | 4 | [🎭 Orchestrator-Workers](#pattern-4--orchestrator-workers) | Manager + specialists |
-| 5 | [👨‍🔧 Evaluator-Optimizer](#pattern-5-️-evaluator-optimizer) | Iterative refinement |
-| 6 | [🦅 Autonomous Agents](#pattern-6--autonomous-agents) | Self-directed execution |
+| 5 | [🩻 Evaluator-Optimizer](#pattern-5-️-evaluator-optimizer) | Iterative refinement |
+| 6 | [🐉 Autonomous Agents](#pattern-6--autonomous-agents) | Self-directed execution |
 | ⚔️ | [Pattern Comparisons](#pattern-comparisons) | Side-by-side VS diagrams |
 
 ---
@@ -38,8 +38,8 @@ These patterns come from **Anthropic's research paper "Building Effective Agents
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │   1. ⛓️ Prompt Chaining       4. 🎭 Orchestrator-Workers                    │
-│   2. 🚦 Routing               5. 👨‍🔧 Evaluator-Optimizer                     │
-│   3. 🛤️ Parallelization       6. 🦅 Autonomous Agents                       │
+│   2. 🚦 Routing               5. 🩻 Evaluator-Optimizer                     │
+│   3. 🛤️ Parallelization       6. 🐉 Autonomous Agents                       │
 │                                                                             │
 │   Source: "Building Effective Agents" - Anthropic Research, Dec 2024        │
 │                                                                             │
@@ -371,7 +371,7 @@ Orchestrator: Synthesizes into comprehensive review
 
 ---
 
-## Pattern 5: 👨‍🔧 Evaluator-Optimizer
+## Pattern 5: 🩻 Evaluator-Optimizer
 
 ### Definition
 
@@ -391,7 +391,7 @@ flowchart TB
 
     INPUT["🙋‍♀️📥 Task"]:::user --> GEN["🐔💭 Generate"]:::main
     GEN --> CAND["🐔📤 Candidate"]:::data
-    CAND --> EVAL{"🐔👨‍🔧 Evaluate"}:::wizard
+    CAND --> EVAL{"🐔🩻 Evaluate"}:::wizard
 
     EVAL -->|"🐔✅ Pass"| OUTPUT["💁‍♀️📤 Output"]:::success
     EVAL -->|"🐔❌ Fail"| FEEDBACK["🐔🔄 Feedback"]:::error
@@ -405,7 +405,7 @@ flowchart TB
 sequenceDiagram
     participant U as 🙋‍♀️ User
     participant G as 🐔💭 Generator
-    participant E as 🐔👨‍🔧 Evaluator
+    participant E as 🐔🩻 Evaluator
 
     U->>G: 🙋‍♀️📥 Request
     loop 🔄 Until quality threshold
@@ -457,7 +457,7 @@ Evaluator: "Pass - all criteria met"
 
 ---
 
-## Pattern 6: 🦅 Autonomous Agents
+## Pattern 6: 🐉 Autonomous Agents
 
 ### Definition
 
@@ -572,8 +572,8 @@ flowchart LR
 │ 🚦 Routing                │ Low         │ None        │ None         │ None      │
 │ 🛤️ Parallelization        │ Medium      │ High        │ Optional     │ None      │
 │ 🎭 Orchestrator-Workers   │ High        │ High        │ Optional     │ As needed │
-│ 👨‍🔧 Evaluator-Optimizer    │ Medium      │ Optional    │ Optional     │ Loop      │
-│ 🦅 Autonomous Agent       │ Very High   │ Variable    │ Recommended  │ Adaptive  │
+│ 🩻 Evaluator-Optimizer    │ Medium      │ Optional    │ Optional     │ Loop      │
+│ 🐉 Autonomous Agent       │ Very High   │ Variable    │ Recommended  │ Adaptive  │
 └──────────────────────────┴─────────────┴─────────────┴──────────────┴───────────┘
 ```
 
@@ -594,7 +594,7 @@ flowchart TB
     subgraph Combined["🔗 Complex System"]
         R["🐔🚦 Routing"]:::wizard --> OW["🐔🎭 Orchestrator"]:::main
         OW -->|"🐔🪺"| P["🐦⚡ Parallel Workers"]:::parallel
-        P -->|"🐦📤"| EO["🐔👨‍🔧 Evaluator"]:::wizard
+        P -->|"🐦📤"| EO["🐔🩻 Evaluator"]:::wizard
     end
 
     INPUT["🙋‍♀️📥 Input"]:::user --> R
@@ -608,7 +608,7 @@ flowchart TB
 1. **🚦 Routing**: Classify code change type
 2. **🎭 Orchestrator-Workers**: Assign to security, perf, style workers
 3. **🛤️ Parallelization**: Workers run concurrently
-4. **👨‍🔧 Evaluator-Optimizer**: Iterate on feedback if issues found
+4. **🩻 Evaluator-Optimizer**: Iterate on feedback if issues found
 
 ---
 
