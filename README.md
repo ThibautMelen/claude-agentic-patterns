@@ -29,7 +29,7 @@
 mindmap
   root((Agentic Patterns))
     Components 4
-      🤖 Subagent
+      🐦 Subagent
       🦴 Slash Command
       📚 Skill
       🪝 Hook
@@ -39,7 +39,7 @@ mindmap
       🛤️ Parallelization
       🎭 Orchestrator-Workers
       👨‍🔧 Evaluator-Optimizer
-      🐔 Autonomous Agents
+      🦅 Autonomous Agents
     Claude Code Impl 7
       🎪 Subagent Orchestration
       🎓 Progressive Skills
@@ -77,7 +77,7 @@ This documentation covers **two complementary pattern sets**:
 | 🛤️ Parallelization | Execute independent tasks simultaneously |
 | 🎭 Orchestrator-Workers | Central coordinator with specialized workers |
 | 👨‍🔧 Evaluator-Optimizer | Iterative improvement via feedback loops |
-| 🐔 Autonomous Agents | Self-directed with minimal human guidance |
+| 🦅 Autonomous Agents | Self-directed with minimal human guidance |
 
 > Source: Anthropic's "Building Effective Agents" (Dec 2024)
 
@@ -99,14 +99,14 @@ This documentation covers **two complementary pattern sets**:
 
 | Component | Emoji | Location |
 |-----------|:-----:|----------|
-| **Subagent** | 🤖 | `.claude/agents/*.md` |
+| **Subagent** | 🐦 | `.claude/agents/*.md` |
 | **Slash Command** | 🦴 | `.claude/commands/*.md` |
 | **Skill** | 📚 | `.claude/skills/*/SKILL.md` |
 | **Hook** | 🪝 | `.claude/settings.json` |
 
 ```
 .claude/
-├── agents/           # 🤖 Subagent definitions
+├── agents/           # 🐦 Subagent definitions
 │   └── *.md
 ├── commands/         # 🦴 Slash Command definitions
 │   └── *.md
@@ -123,7 +123,7 @@ This documentation covers **two complementary pattern sets**:
 | File | Content |
 |------|---------|
 | [00-OVERVIEW.md](00-OVERVIEW.md) | Entry point, quick reference, emoji guide |
-| [01-OFFICIAL-TERMINOLOGY.md](01-OFFICIAL-TERMINOLOGY.md) | Components: 🤖 Subagent, 🦴 Command, 📚 Skill, 🪝 Hook |
+| [01-OFFICIAL-TERMINOLOGY.md](01-OFFICIAL-TERMINOLOGY.md) | Components: 🐦 Subagent, 🦴 Command, 📚 Skill, 🪝 Hook |
 | [02-LAYER-ARCHITECTURE.md](02-LAYER-ARCHITECTURE.md) | 5-Layer system architecture |
 | [03-ANTHROPIC-RESEARCH-PATTERNS.md](03-ANTHROPIC-RESEARCH-PATTERNS.md) | 6 theoretical patterns from Anthropic |
 | [04-CLAUDE-CODE-PATTERNS.md](04-CLAUDE-CODE-PATTERNS.md) | 7 implementation patterns |
@@ -138,8 +138,8 @@ This documentation covers **two complementary pattern sets**:
 
 ### Critical Rule
 
-> **🤖 Subagents cannot spawn other 🤖 subagents.**
-> All delegation must go through the 🧠 Main Agent.
+> **🐦 Subagents cannot spawn other 🐦 subagents.**
+> All delegation must go through the 🐔 Main Agent.
 
 ### Pattern Selection
 

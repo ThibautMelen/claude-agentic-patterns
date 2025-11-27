@@ -10,126 +10,224 @@
 
 ---
 
-# Style Guide: Colors & Emojis
+# Style Guide: ACTEUR + ACTION System
 
-> Standardized visual language for all Mermaid diagrams in agentic documentation
+> Standardized visual language for all Mermaid diagrams using **WHO does WHAT**
 
 ## 📑 Table of Contents
 
 | # | Section | Description |
 |---|---------|-------------|
-| 1 | [Understanding the Model](#understanding-the-model) | Layers vs Components |
-| 2 | [Emoji System](#emoji-system) | Complete reference |
-| 3 | [Color Palette](#color-palette) | Hex codes |
-| 4 | [Mermaid Classes](#mermaid-class-definitions) | Copy-paste blocks |
-| 5 | [Rules](#rules) | Do's and Don'ts |
+| 1 | [Core Concept](#core-concept) | ACTEUR + ACTION explained |
+| 2 | [Acteurs](#acteurs) | Who does the action |
+| 3 | [Actions](#actions) | What is being done |
+| 4 | [Tools](#tools) | What they use |
+| 5 | [Combinations](#combinations) | ACTEUR + ACTION examples |
+| 6 | [Other Elements](#other-elements) | Status, Triggers, Patterns |
+| 7 | [Color Palette](#color-palette) | Hex codes |
+| 8 | [Mermaid Classes](#mermaid-class-definitions) | Copy-paste blocks |
+| 9 | [Rules](#rules) | Do's and Don'ts |
 
 ---
 
-## Understanding the Model
+## Core Concept
 
-Before using this style guide, understand the relationship between **Layers** and **Components**:
+Every element in a diagram answers: **WHO does WHAT?**
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    LAYERS vs COMPONENTS                                     │
+│                         ACTEUR + ACTION SYSTEM                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  LAYERS = Containers (where things live)                                    │
-│  COMPONENTS = Entities (what lives there)                                   │
+│  FORMAT: 🐔💭 = Main Agent (WHO) + Réflexion (WHAT)                         │
 │                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │ Layer 1: User        │  👤 User interacts here                      │   │
-│  │                      │  🦴 Slash Commands live here (entry points)  │   │
-│  ├──────────────────────┼──────────────────────────────────────────────┤   │
-│  │ Layer 2: Main Agent  │  🧠 Main Agent lives here (orchestrator)     │   │
-│  │                      │  📚 Skills loaded here                       │   │
-│  ├──────────────────────┼──────────────────────────────────────────────┤   │
-│  │ Layer 3: Delegation  │  🔀 Workflow definitions                     │   │
-│  ├──────────────────────┼──────────────────────────────────────────────┤   │
-│  │ Layer 4: Execution ⚡│  🤖 Subagents work here                      │   │
-│  │                      │  🛠️ Native, 🔌 MCP, 🖐️ Interaction tools     │   │
-│  ├──────────────────────┼──────────────────────────────────────────────┤   │
-│  │ Layer 5: State       │  💾 Data persists here                       │   │
-│  │                      │  🪝 Hooks trigger here                       │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                             │
-│  KEY INSIGHT: Main Agent IS Layer 2. Use 🧠 for both.                       │
-│               Subagent IS the worker in Layer 4. Use 🤖 for both.           │
+│  EXAMPLES:                                                                  │
+│  ┌─────────┬─────────┬──────────────────────────────────────────────────┐  │
+│  │ Combo   │ Meaning │ Description                                      │  │
+│  ├─────────┼─────────┼──────────────────────────────────────────────────┤  │
+│  │ 🙆‍♀️      │ User    │ User (neutral/idle state)                        │  │
+│  │ 🙋‍♀️📥    │ User    │ User sends input                                 │  │
+│  │ 💁‍♀️📤    │ User    │ User receives output                             │  │
+│  │ 🐔💭    │ Main    │ Main Agent thinks/reasons                        │  │
+│  │ 🐔🚦    │ Main    │ Main Agent routes/decides                        │  │
+│  │ 🐔🪺    │ Main    │ Main Agent spawns Subagent (via Task tool)       │  │
+│  │ 🐔🔀    │ Main    │ Main Agent splits task                           │  │
+│  │ 🐔🌀    │ Main    │ Main Agent merges results                        │  │
+│  │ 🐔🔧    │ Main    │ Main Agent uses Native tool                      │  │
+│  │ 🐦⚡    │ Sub     │ Subagent executes task                           │  │
+│  │ 🐦📤    │ Sub     │ Subagent returns result                          │  │
+│  │ 🐦💤    │ Sub     │ Subagent idle/not chosen (Routing)               │  │
+│  │ 🐔💤    │ Main    │ Main Agent idle/not chosen (Routing)             │  │
+│  └─────────┴─────────┴──────────────────────────────────────────────────┘  │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Emoji System
+## Acteurs
 
-### Components (entities that live in layers)
+**WHO does the action?**
 
-| Component | Emoji | Color | Hex | Border |
-|-----------|-------|-------|-----|--------|
-| **User** | 👤 | Indigo | `#6366f1` | `#4f46e5` |
-| **Slash Command** | 🦴 | Indigo | `#6366f1` | `#4f46e5` |
-| **Main Agent** | 🧠 | Purple | `#8b5cf6` | `#7c3aed` |
-| **Skill** | 📚 | Purple | `#8b5cf6` | `#7c3aed` |
-| **Subagent** | 🤖 | Pink | `#ec4899` | `#db2777` |
-| **Task tool** | 📤 | Pink | `#ec4899` | `#db2777` |
-| **State** | 💾 | Emerald | `#10b981` | `#059669` |
-| **Hook** | 🪝 | Emerald | `#10b981` | `#059669` |
+| Acteur | Emoji | Color | Hex | Description |
+|--------|-------|-------|-----|-------------|
+| **User (neutral)** | 🙆‍♀️ | Indigo | `#6366f1` | The human (idle state) |
+| **User (gives)** | 🙋‍♀️ | Indigo | `#6366f1` | The human sends input |
+| **User (receives)** | 💁‍♀️ | Indigo | `#6366f1` | The human receives output |
+| **Main Agent** | 🐔 | Purple | `#8b5cf6` | Claude Code orchestrator (the hen) |
+| **Subagent** | 🐦 | Pink | `#ec4899` | Delegated worker (the bird) |
 
-### Tools (3 categories)
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  THE POULTRY FAMILY                                                         │
+│                                                                             │
+│  USER STATES:                                                               │
+│  🙆‍♀️ User (neutral)  → Idle, waiting                                        │
+│  🙋‍♀️ User (gives)    → Sends input to system                                │
+│  💁‍♀️ User (receives) → Receives output from system                          │
+│                                                                             │
+│  AGENTS:                                                                    │
+│  🐔 Main Agent  → The hen that orchestrates (can spawn 🐦)                  │
+│  🐦 Subagent    → The bird that executes (cannot spawn other 🐦)            │
+│                                                                             │
+│  HIERARCHY: 🙋‍♀️📥 → 🐔 → 🐦 → 💁‍♀️📤                                           │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
-| Category | Emoji | Color | Hex | Border | Examples |
-|----------|-------|-------|-----|--------|----------|
-| **Native Tools** | 🛠️ | Slate | `#64748b` | `#475569` | Read, Write, Edit, Bash, Glob, Grep |
-| **MCP Tools** | 🔌 | Amber | `#f59e0b` | `#d97706` | Context7, Perplexity, Firecrawl |
-| **User Interaction** | 🖐️ | Teal | `#14b8a6` | `#0d9488` | ❓ AskUserQuestion, 📋 TodoWrite |
+---
 
-**Native Tools sub-categories** (optional, for precision):
+## Actions
 
-| Sub-category | Emoji | Tools |
+**WHAT is being done?**
+
+| Action | Emoji | Description | Used with |
+|--------|-------|-------------|-----------|
+| **Input** | 📥 | Receives/Sends data | 🙋‍♀️📥 (user sends) |
+| **Output** | 📤 | Produces/Returns result | 🐔📤, 🐦📤, 💁‍♀️📤 (user receives) |
+| **Réflexion** | 💭 | Thinks/Reasons/Prompts | 🐔💭, 🐦💭 |
+| **Routing** | 🚦 | Decides direction | 🐔🚦 |
+| **Spawn** | 🪺 | Creates/Spawns subagent | 🐔🪺 |
+| **Exécution** | ⚡ | Executes task | 🐔⚡, 🐦⚡ |
+| **Observation** | 👀 | Reads/Observes | 🐔👀, 🐦👀 |
+| **Écriture** | ✏️ | Writes/Modifies | 🐔✏️, 🐦✏️ |
+| **Validation** | ✅ | Validates/Approves | 🙆‍♀️✅, 🐔✅ |
+| **Question** | ❓ | Asks | 🙆‍♀️❓, 🐔❓ |
+| **Split** | 🔀 | Divides/Splits task | 🐔🔀 |
+| **Merge** | 🌀 | Combines results | 🐔🌀 |
+| **Plan** | 📋 | Creates plan | 🐔📋 |
+| **Adjust** | 🔄 | Adjusts/Loops | 🐔🔄 |
+| **Continue** | ▶️ | Continues execution | 🐔▶️ |
+| **Idle/Sleep** | 💤 | Not chosen/Inactive | 🐦💤, 🐔💤 |
+
+---
+
+## Tools
+
+**WHAT do they use?** (3 types)
+
+| Tool Type | Emoji | Color | Hex | Examples |
+|-----------|-------|-------|-----|----------|
+| **Native** | 🔧 | Slate | `#64748b` | Read, Write, Edit, Bash, Glob, Grep |
+| **MCP** | 🔌 | Amber | `#f59e0b` | Context7, Perplexity, Firecrawl |
+| **User Interaction** | 💁‍♀️ | Teal | `#14b8a6` | AskUserQuestion, TodoWrite |
+
+### Native Tool Sub-categories (optional precision)
+
+| Sub-category | Combo | Tools |
 |--------------|-------|-------|
-| Read Operations | 🛠️👀 | Read, Glob, Grep |
-| Write Operations | 🛠️✏️ | Write, Edit, NotebookEdit |
-| System Operations | 🛠️💻 | Bash, BashOutput, KillShell |
-| Web Operations | 🛠️🌐 | WebFetch, WebSearch |
+| Read Operations | 🔧👀 | Read, Glob, Grep |
+| Write Operations | 🔧✏️ | Write, Edit, NotebookEdit |
+| System Operations | 🔧💻 | Bash, BashOutput, KillShell |
+| Web Operations | 🔧🌐 | WebFetch, WebSearch |
 
-### Patterns (reusable design solutions)
+---
 
-#### Claude Code Implementation Patterns (7 + baseline)
+## Combinations
 
-| Pattern | Emoji | Color | Hex | Border |
-|---------|-------|-------|-----|--------|
-| **Direct Execution** | 🏎️ | Slate | `#64748b` | `#475569` |
-| **Subagent Orchestration** | 🎪 | Pink | `#ec4899` | `#db2777` |
-| **Parallel Tool Calling** | 🚂 | Blue | `#3b82f6` | `#2563eb` |
-| **Master-Clone** | 🧬 | Amber | `#f59e0b` | `#d97706` |
-| **Wizard Workflow** | 🧙 | Teal | `#14b8a6` | `#0d9488` |
-| **Multi-Window Context** | 🖥️ | Blue | `#3b82f6` | `#2563eb` |
-| **Progressive Skills** | 🎓 | Emerald | `#10b981` | `#059669` |
-| **Programmatic Orchestration** | 🎛️ | Indigo | `#6366f1` | `#4f46e5` |
+### ACTEUR + ACTION
 
-#### Anthropic Research Patterns (6)
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  USER (3 states: 🙆‍♀️ 🙋‍♀️ 💁‍♀️)                                                 │
+│  ────────────────────────────────────────────────────────────────────────── │
+│  🙆‍♀️      User (neutral/idle state)                                         │
+│  🙋‍♀️📥    User sends input                                                   │
+│  🙆‍♀️✅    User validates (approves)                                          │
+│  🙆‍♀️❓    User questions                                                     │
+│  💁‍♀️📤    User receives output                                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  MAIN AGENT 🐔                                                              │
+│  ────────────────────────────────────────────────────────────────────────── │
+│  🐔💭   Main Agent thinks/reasons                                           │
+│  🐔🚦   Main Agent routes/decides                                           │
+│  🐔🪺   Main Agent spawns Subagent (Task tool)                              │
+│  🐔🔀   Main Agent splits task                                              │
+│  🐔🌀   Main Agent merges results                                           │
+│  🐔📋   Main Agent plans (Pattern 6: Autonomous)                            │
+│  🐔📤   Main Agent outputs result                                           │
+│  🐔⚡   Main Agent executes                                                 │
+│  🐔👀   Main Agent observes/reads                                           │
+│  🐔✏️   Main Agent writes                                                   │
+│  🐔✅   Main Agent validates                                                │
+│  🐔🔄   Main Agent adjusts/loops                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  SUBAGENT 🐦                                                                │
+│  ────────────────────────────────────────────────────────────────────────── │
+│  🐦💭   Subagent thinks/reasons                                             │
+│  🐦⚡   Subagent executes                                                   │
+│  🐦👀   Subagent observes/reads                                             │
+│  🐦✏️   Subagent writes                                                     │
+│  🐦📤   Subagent returns result                                             │
+│  🐦✅   Subagent validates                                                  │
+│  🐦💤   Subagent idle/not chosen                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  IDLE (for Routing pattern)                                                 │
+│  ────────────────────────────────────────────────────────────────────────── │
+│  🐔💤   Main Agent idle/not chosen                                          │
+│  🐦💤   Subagent idle/not chosen                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
-| Pattern | Emoji | Maps to Claude Code |
-|---------|-------|---------------------|
-| **Prompt Chaining** | ⛓️ | 🎛️ Programmatic Orchestration, 🧙 Wizard |
-| **Routing** | 🚦 | 🎓 Progressive Skills |
-| **Parallelization** | 🛤️ | 🚂 Parallel Tool Calling, 🧬 Master-Clone |
-| **Orchestrator-Workers** | 🎭 | 🎪 Subagent Orchestration |
-| **Evaluator-Optimizer** | 👨‍🔧 | (Loop with validation) |
-| **Autonomous Agents** | 🐔 | 🖥️ Multi-Window Context |
+### ACTEUR + TOOL
 
-### Phases (generation order)
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  MAIN AGENT 🐔 + TOOLS                                                      │
+│  ────────────────────────────────────────────────────────────────────────── │
+│  🐔🔧      Main Agent uses Native tool                                      │
+│  🐔🔧👀    Main Agent reads (Read, Glob, Grep)                              │
+│  🐔🔧✏️    Main Agent writes (Write, Edit)                                  │
+│  🐔🔧💻    Main Agent bash                                                  │
+│  🐔🔧🌐    Main Agent web (WebFetch, WebSearch)                             │
+│  🐔🔌      Main Agent uses MCP tool                                         │
+│  🐔💁‍♀️     Main Agent user interaction                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  SUBAGENT 🐦 + TOOLS                                                        │
+│  ────────────────────────────────────────────────────────────────────────── │
+│  🐦🔧      Subagent uses Native tool                                        │
+│  🐦🔧👀    Subagent reads                                                   │
+│  🐦🔧✏️    Subagent writes                                                  │
+│  🐦🔧💻    Subagent bash                                                    │
+│  🐦🔌      Subagent uses MCP tool                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
-| Phase | Emoji | Description |
-|-------|-------|-------------|
-| **Phase 1** | 🏗️ | Foundation |
-| **Phase 2** | 🔗 | Formatting |
-| **Phase 3** | 📝 | Content |
-| **Phase 4** | 🔮 | Synthesis |
+---
 
-### Status (workflow states)
+## Other Elements
+
+### Triggers & Components
+
+| Element | Emoji | Color | Hex | Description |
+|---------|-------|-------|-----|-------------|
+| **Hook** | 🪝 | Emerald | `#10b981` | Automatic trigger |
+| **Slash Command** | 🦴 | Indigo | `#6366f1` | User entry point |
+| **Skill** | 📚 | Purple | `#8b5cf6` | Loaded knowledge |
+| **State/Data** | 💾 | Emerald | `#10b981` | Persisted data |
+| **Task tool** | 📤 | Pink | `#ec4899` | Delegation (spawns 🐦) |
+
+### Status
 
 | Status | Emoji | Color | Hex |
 |--------|-------|-------|-----|
@@ -140,19 +238,40 @@ Before using this style guide, understand the relationship between **Layers** an
 | **Pending** | ⏳ | Slate | `#64748b` |
 | **Skip** | ⏭️ | Slate | `#64748b` |
 
-### Categories (AthenaKNW specific)
+### Patterns (for titles only)
 
-| Category | Emoji |
-|----------|-------|
-| core-identity | 🆔 |
-| core-formatting | 📐 |
-| content-seo-slug | 🔍 |
-| content-vocabulary | 💬 |
-| content-style | ✍️ |
-| content-cultural-values | 🎭 |
-| content-cultural-refs | 🎯 |
-| market-intelligence | 📊 |
-| content-ai-rules | ⚙️ |
+**Anthropic Research Patterns:**
+
+| Pattern | Emoji |
+|---------|-------|
+| Prompt Chaining | ⛓️ |
+| Routing | 🚦 |
+| Parallelization | 🛤️ |
+| Orchestrator-Workers | 🎭 |
+| Evaluator-Optimizer | 👨‍🔧 |
+| Autonomous Agents | 🦅 |
+
+**Claude Code Implementation Patterns:**
+
+| Pattern | Emoji | Color | Hex |
+|---------|-------|-------|-----|
+| Direct Execution | 🏎️ | Slate | `#64748b` |
+| Subagent Orchestration | 🎪 | Pink | `#ec4899` |
+| Parallel Tool Calling | 🚂 | Blue | `#3b82f6` |
+| Master-Clone | 🧬 | Amber | `#f59e0b` |
+| Wizard Workflow | 🧙 | Teal | `#14b8a6` |
+| Multi-Window Context | 🖥️ | Blue | `#3b82f6` |
+| Progressive Skills | 🎓 | Emerald | `#10b981` |
+| Programmatic Orchestration | 🎛️ | Indigo | `#6366f1` |
+
+### Phases (generation order)
+
+| Phase | Emoji | Description |
+|-------|-------|-------------|
+| **Phase 1** | 🏗️ | Foundation |
+| **Phase 2** | 🔗 | Formatting |
+| **Phase 3** | 📝 | Content |
+| **Phase 4** | 🔮 | Synthesis |
 
 ---
 
@@ -160,39 +279,44 @@ Before using this style guide, understand the relationship between **Layers** an
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           EMOJI QUICK REFERENCE                             │
+│                      EMOJI QUICK REFERENCE v2                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  COMPONENTS                          CLAUDE CODE PATTERNS                   │
-│  ──────────                          ────────────────────                   │
-│  👤 User                             🏎️ Direct Execution                    │
-│  🦴 Slash Command                    🎪 Subagent Orchestration              │
-│  🧠 Main Agent                       🚂 Parallel Tool Calling               │
-│  📚 Skill                            🧬 Master-Clone                        │
-│  🤖 Subagent                         🧙 Wizard Workflow                     │
-│  📤 Task tool                        🖥️ Multi-Window Context                │
-│  💾 State                            🎓 Progressive Skills                  │
-│  🪝 Hook                             🎛️ Programmatic Orchestration          │
-│                                                                             │
-│  TOOLS (3 categories)                                                       │
-│  ────────────────────                                                       │
-│  🛠️ Native Tools (Read, Write, Bash...)                                     │
-│  🔌 MCP Tools (Context7, Perplexity...)                                     │
-│  🖐️ User Interaction (❓ AskUser, 📋 Todo)                                  │
-│                                                                             │
-│  STATUS                                                                     │
-│  ──────                                                                     │
-│  ✅ Success    ❌ Error                                                     │
-│  ⚠️ Warning    🔄 Progress                                                  │
-│  ⏳ Pending    ⏭️ Skip                                                      │
-│                                                                             │
-│  PHASES                                                                     │
-│  ──────                                                                     │
-│  🏗️ Phase 1 (Foundation)                                                   │
-│  🔗 Phase 2 (Formatting)                                                    │
-│  📝 Phase 3 (Content)                                                       │
-│  🔮 Phase 4 (Synthesis)                                                     │
-│                                                                             │
+│  ACTEURS              ACTIONS              TOOLS                            │
+│  ────────             ───────              ─────                            │
+│  🙆‍♀️ User (neutral)   📥 Input             🔧 Native                        │
+│  🙋‍♀️ User (gives)     📤 Output            🔌 MCP                           │
+│  💁‍♀️ User (receives)  💭 Réflexion         💁‍♀️ User Interaction              │
+│  🐔 Main Agent        🚦 Routing                                            │
+│  🐦 Subagent          🪺 Spawn             NATIVE DETAIL                    │
+│                       ⚡ Exécution         ─────────────                    │
+│                       👀 Observation       🔧👀 Read ops                     │
+│                       ✏️ Écriture          🔧✏️ Write ops                    │
+│                       ✅ Validation        🔧💻 Bash ops                     │
+│                       ❓ Question          🔧🌐 Web ops                      │
+│                       🔀 Split             📋 Plan                          │
+│                       🌀 Merge             🔄 Adjust                         │
+│                       💤 Idle/Sleep                                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  TRIGGERS             STATUS               COMPOSANTS                       │
+│  ────────             ──────               ──────────                       │
+│  🪝 Hook              ✅ Success           🦴 Slash Command                 │
+│                       ❌ Error             📚 Skill                         │
+│                       ⚠️ Warning           💾 State                         │
+│                       🔄 Progress          📤 Task tool                     │
+│                       ⏳ Pending                                            │
+│                       ⏭️ Skip                                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  PATTERNS ANTHROPIC                PATTERNS CLAUDE CODE                     │
+│  ─────────────────                 ────────────────────                     │
+│  ⛓️ Prompt Chaining                🏎️ Direct Execution                      │
+│  🚦 Routing                        🎪 Subagent Orchestration                │
+│  🛤️ Parallelization                🚂 Parallel Tool Calling                 │
+│  🎭 Orchestrator-Workers           🧬 Master-Clone                          │
+│  👨‍🔧 Evaluator-Optimizer           🧙 Wizard Workflow                       │
+│  🦅 Autonomous Agents              🖥️ Multi-Window Context                  │
+│                                    🎓 Progressive Skills                    │
+│                                    🎛️ Programmatic Orchestration            │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -205,16 +329,17 @@ Before using this style guide, understand the relationship between **Layers** an
 │                         STANDARD COLOR PALETTE                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  🟣 #6366f1 (Indigo)    → User, Slash Commands                              │
-│  🟣 #8b5cf6 (Purple)    → Main Agent, Skills                                │
-│  🩷 #ec4899 (Pink)      → Subagents, Task tool                              │
-│  🟠 #f59e0b (Amber)     → MCP Tools, Master-Clone                           │
-│  🟢 #10b981 (Emerald)   → State, Success, Progressive Skills                │
-│  🔵 #3b82f6 (Blue)      → Parallel, Multi-Window, Progress                  │
-│  🔴 #ef4444 (Red)       → Errors                                            │
-│  🩶 #64748b (Slate)     → Neutral, Skip, Pending                            │
-│  🩵 #14b8a6 (Teal)      → Wizard, Human-in-the-Loop                         │
-│  🩵 #06b6d4 (Cyan)      → Data flow                                         │
+│  🟣 #6366f1 (Indigo)    → User 🙆‍♀️🙋‍♀️💁‍♀️, Slash Commands 🦴                   │
+│  🟣 #8b5cf6 (Purple)    → Main Agent 🐔, Skills 📚                          │
+│  🩷 #ec4899 (Pink)      → Subagent 🐦, Task tool 📤                         │
+│  🟠 #f59e0b (Amber)     → MCP Tools 🔌, Master-Clone 🧬                     │
+│  🟢 #10b981 (Emerald)   → State 💾, Success ✅, Hook 🪝                     │
+│  🔵 #3b82f6 (Blue)      → Parallel 🚂, Multi-Window 🖥️, Progress 🔄        │
+│  🔴 #ef4444 (Red)       → Errors ❌                                        │
+│  🩶 #64748b (Slate)     → Native Tools 🔧, Neutral, Skip ⏭️                 │
+│  🩶 #94a3b8 (Slate-400) → Idle/Not chosen 💤                                │
+│  🩵 #14b8a6 (Teal)      → User Interaction 💁‍♀️, Wizard 🧙                   │
+│  🩵 #06b6d4 (Cyan)      → Data flow                                        │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -230,24 +355,24 @@ Copy this block at the start of every Mermaid diagram:
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
-    %% Standard Color Classes - Components
+    %% Acteurs
     classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
-    classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    %% Tool Categories (3 types)
+    %% Tools
     classDef nativeTool fill:#64748b,stroke:#475569,stroke-width:2px,color:#ffffff
     classDef mcpTool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef userInteraction fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
-    classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff  %% Alias for mcpTool (backward compat)
 
-    %% Patterns & Status
+    %% Other
+    classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
     classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
     classDef error fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#ffffff
     classDef neutral fill:#64748b,stroke:#475569,stroke-width:2px,color:#ffffff
     classDef data fill:#06b6d4,stroke:#0891b2,stroke-width:2px,color:#ffffff
+    classDef idle fill:#94a3b8,stroke:#64748b,stroke-width:2px,color:#ffffff
 ```
 
 ### Subgraph Styles
@@ -271,23 +396,23 @@ flowchart TB
     classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
-    classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
+    classDef mcpTool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
 
-    subgraph L1["👤 LAYER 1: USER"]
+    subgraph L1["🙋‍♀️ LAYER 1: USER"]
         CMD["🦴 /generate fr-FR"]:::user
     end
 
-    subgraph L2["🧠 LAYER 2: MAIN AGENT"]
-        MA["🧠 Main Agent"]:::main
+    subgraph L2["🐔 LAYER 2: MAIN AGENT"]
+        MA["🐔💭 Main Agent"]:::main
         WIZ["🧙 Wizard Workflow"]:::wizard
         MA --> WIZ
     end
 
     subgraph L3["🔀 LAYER 3: DELEGATION"]
-        SA1["🤖 core-identity"]:::subagent
-        SA2["🤖 core-formatting"]:::subagent
+        SA1["🐦⚡ core-identity"]:::subagent
+        SA2["🐦⚡ core-formatting"]:::subagent
     end
 
     subgraph L4["⚡ LAYER 4: EXECUTION"]
@@ -300,7 +425,7 @@ flowchart TB
     end
 
     CMD --> MA
-    WIZ -->|"User approves"| SA1 & SA2
+    WIZ -->|"🙆‍♀️✅ User approves"| SA1 & SA2
     SA1 & SA2 --> T1 & T2
     T1 & T2 --> S1
 
@@ -313,24 +438,66 @@ flowchart TB
 
 ---
 
+## Example: Prompt Chaining Flow
+
+```
+🙋‍♀️📥 ──► 🐔💭 ──► 🐔📤 ──► 🐔💭 ──► 🐔📤 ──► 🐔💭 ──► 🐔📤 ──► 💁‍♀️📤
+Input     Step 1    (internal)  Step 2    (internal)  Step 3     Output    User
+```
+
+## Example: Orchestrator-Workers Flow
+
+```
+🙋‍♀️📥 ──► 🐔🔀 ──┬──► 🐦⚡ ──► 🐦📤 ──┐
+                ├──► 🐦⚡ ──► 🐦📤 ──┼──► 🐔🌀 ──► 🐔📤 ──► 💁‍♀️📤
+                └──► 🐦⚡ ──► 🐦📤 ──┘
+```
+
+## Example: Autonomous Agent Flow (Pattern 6: 🦅)
+
+```
+🙋‍♀️📥 ──► 🐔📋 ──► 🐔⚡ ──► 🐔👀 ──► 🐔💭 ──┬──► 🐔🔄 ──► 🐔📋 (loop)
+Goal       Plan      Act      Observe   Reflect │
+                                                └──► 🐔📤 ──► 💁‍♀️📤 (done)
+```
+
+---
+
 ## Rules
 
 ### Do's
 
-1. **Always use classDef** - Never inline styles
-2. **Consistent colors** - Same color = same component type everywhere
-3. **Emoji + Text** - Use both for accessibility
+1. **Always use ACTEUR + ACTION** - Every node should show WHO does WHAT
+2. **Use classDef** - Never inline styles
+3. **Consistent colors** - Same color = same acteur/tool everywhere
 4. **White text on dark fills** - `color:#ffffff` for readability
 5. **2px stroke-width** - Standard border thickness
 6. **Subgraph backgrounds** - Use lighter versions of layer colors
 
 ### Don'ts
 
-1. **Don't mix emoji meanings** - 🧠 is always Main Agent, never Subagent
+1. **Don't mix emoji meanings** - 🐔 is always Main Agent, never Subagent
 2. **Don't use random colors** - Stick to the palette
 3. **Don't skip emojis** - They aid quick scanning
 4. **Don't use dark backgrounds with dark text**
 5. **Don't create new emojis without documenting**
+6. **Don't use 🧠 for Main Agent** - Use 🐔 (deprecated)
+7. **Don't use 🤖 for Subagent** - Use 🐦 (deprecated)
+8. **Don't use 👤 for User** - Use 🙋‍♀️ (deprecated)
+
+---
+
+## Migration Guide (Old → New)
+
+| Old | New | Element |
+|-----|-----|---------|
+| 👤 | 🙆‍♀️/🙋‍♀️/💁‍♀️ | User (3 states) |
+| 🧠 | 🐔 | Main Agent |
+| 🤖 | 🐦 | Subagent |
+| 🛠️ | 🔧 | Native Tool |
+| 🖐️ | 💁‍♀️ | User Interaction Tool |
+
+> **Note:** 🦅 is only used for Pattern 6 title "🦅 Autonomous Agents", not as an acteur in diagrams.
 
 ---
 
@@ -338,18 +505,18 @@ flowchart TB
 
 ```css
 :root {
-  /* Component Colors */
+  /* Acteur Colors */
   --color-user: #6366f1;
   --color-main-agent: #8b5cf6;
   --color-subagent: #ec4899;
-  --color-state: #10b981;
 
-  /* Tool Colors (3 categories) */
+  /* Tool Colors */
   --color-native-tool: #64748b;
   --color-mcp-tool: #f59e0b;
   --color-user-interaction: #14b8a6;
 
-  /* Pattern Colors */
+  /* Other */
+  --color-state: #10b981;
   --color-wizard: #14b8a6;
   --color-parallel: #3b82f6;
   --color-data: #06b6d4;
@@ -359,6 +526,7 @@ flowchart TB
   --color-error: #ef4444;
   --color-warning: #f59e0b;
   --color-neutral: #64748b;
+  --color-idle: #94a3b8;
 
   /* Border Colors (darker variants) */
   --border-user: #4f46e5;

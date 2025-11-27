@@ -62,7 +62,7 @@
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
 │ 👨‍🔧 Evaluator-Optimizer │ (Loop with validation)   │ Iterative tool calls       │
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
-│ 🐔 Autonomous Agents  │ Multi-Window Context     │ Checkpointing              │
+│ 🦅 Autonomous Agents  │ Multi-Window Context     │ Checkpointing              │
 ├───────────────────────┼──────────────────────────┼────────────────────────────┤
 │ 🧙 Human-in-the-Loop  │ Wizard Workflows         │ AskUserQuestion tool       │
 └───────────────────────┴──────────────────────────┴────────────────────────────┘
@@ -91,7 +91,7 @@ AskUserQuestion(questions=[{
 }])
 ```
 
-**🐔 Autonomous Agent**
+**🦅 Autonomous Agent**
 : An agent that independently plans, executes, and adapts without constant human guidance. Anthropic Research Pattern #6.
 
 ### C
@@ -289,8 +289,8 @@ graph TB
     classDef skill fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
     subgraph Components
-        MA["🧠 Main Agent"]:::main
-        SA["🤖 Subagent"]:::subagent
+        MA["🐔 Main Agent"]:::main
+        SA["🐦 Subagent"]:::subagent
         CMD["🦴 Slash Command"]:::user
         SKILL["📚 Skill"]:::skill
         HOOK["🪝 Hook"]:::main
@@ -312,7 +312,7 @@ graph LR
         R3[🛤️ Parallelization]
         R4[Orchestrator-Workers]
         R5[👨‍🔧 Evaluator-Optimizer]
-        R6[🐔 Autonomous Agents]
+        R6[🦅 Autonomous Agents]
     end
 
     subgraph Implementation["Claude Code (7)"]
@@ -345,7 +345,7 @@ flowchart TB
     classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    L1["👤 Layer 1: User"]:::user --> L2["🧠 Layer 2: Main Agent"]:::main
+    L1["🙋‍♀️ Layer 1: User"]:::user --> L2["🐔 Layer 2: Main Agent"]:::main
     L2 --> L3["🔀 Layer 3: Delegation"]:::subagent
     L3 --> L4["⚡ Layer 4: Execution"]:::tool
     L4 --> L5["💾 Layer 5: State"]:::state
@@ -426,9 +426,9 @@ flowchart TB
 
 | Color | Hex | Meaning | Emoji |
 |-------|-----|---------|-------|
-| Indigo | `#6366f1` | User, Slash Commands | 👤 🦴 |
-| Purple | `#8b5cf6` | Main Agent, Skills | 🧠 📚 |
-| Pink | `#ec4899` | Subagent, Task tool | 🤖 📤 |
+| Indigo | `#6366f1` | User, Slash Commands | 🙋‍♀️ 🦴 |
+| Purple | `#8b5cf6` | Main Agent, Skills | 🐔 📚 |
+| Pink | `#ec4899` | Subagent, Task tool | 🐦 📤 |
 | Amber | `#f59e0b` | MCP Tools | 🔌 |
 | Emerald | `#10b981` | State, Success | 💾 ✅ |
 | Blue | `#3b82f6` | Parallel, Multi-Window | 🚂 🖥️ |

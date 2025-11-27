@@ -19,7 +19,7 @@
 | # | Section | Description |
 |---|---------|-------------|
 | 1 | [The Four Core Components](#the-four-core-components) | Overview diagram |
-| 2 | [🤖 Subagent](#1--subagent) | Autonomous task execution |
+| 2 | [🐦 Subagent](#1--subagent) | Autonomous task execution |
 | 3 | [🦴 Slash Command](#2--slash-command) | User-invokable workflows |
 | 4 | [📚 Skill](#3--skill) | Reusable capabilities |
 | 5 | [🪝 Hook](#4--hook) | Event-driven automation |
@@ -36,7 +36,7 @@
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
-│   │ 🤖 SUBAGENT  │  │🦴 SLASH CMD  │  │  📚 SKILL    │  │   🪝 HOOK    │   │
+│   │ 🐦 SUBAGENT  │  │🦴 SLASH CMD  │  │  📚 SKILL    │  │   🪝 HOOK    │   │
 │   ├──────────────┤  ├──────────────┤  ├──────────────┤  ├──────────────┤   │
 │   │ 📤 Task tool │  │ /command     │  │ Capability   │  │ Event-driven │   │
 │   │ spawns       │  │ invokes      │  │ loaded       │  │ shell cmd    │   │
@@ -53,11 +53,11 @@
 
 ---
 
-## 1. 🤖 Subagent
+## 1. 🐦 Subagent
 
 ### Definition
 
-A **Subagent** is an autonomous agent spawned by the 🧠 Main Agent via the 📤 `Task` tool to handle specific, isolated tasks.
+A **Subagent** is an autonomous agent spawned by the 🐔 Main Agent via the 📤 `Task` tool to handle specific, isolated tasks.
 
 ### Key Characteristics
 
@@ -89,7 +89,7 @@ You are a code review specialist. Your task is to...
 
 ### Permission Modes
 
-Control how 🤖 Subagents request permissions for tool usage:
+Control how 🐦 Subagents request permissions for tool usage:
 
 | Mode | Behavior | Use Case |
 |------|----------|----------|
@@ -102,7 +102,7 @@ Control how 🤖 Subagents request permissions for tool usage:
 ### Usage Example
 
 ```python
-# 🧠 Main Agent spawns 🤖 subagent via 📤 Task tool
+# 🐔 Main Agent spawns 🐦 subagent via 📤 Task tool
 Task(
     subagent_type="code-reviewer",
     prompt="Review the authentication module for security issues"
@@ -114,17 +114,17 @@ Task(
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 sequenceDiagram
-    participant U as 👤 User
-    participant MA as 🧠 Main Agent
-    participant SA as 🤖 Subagent
-    participant T as 🔌 Tools
+    participant U as 🙋‍♀️ User
+    participant MA as 🐔 Main Agent
+    participant SA as 🐦 Subagent
+    participant T as 🔧 Tools
 
     U->>MA: "Review my code"
     MA->>SA: 📤 Task(subagent_type="code-reviewer")
     SA->>T: Read, Grep, Glob
     T-->>SA: Results
-    SA-->>MA: Review Report
-    MA-->>U: "Here's the review..."
+    SA-->>MA: 🐦📤 Review Report
+    MA-->>U: 💁‍♀️📤 "Here's the review..."
 ```
 
 ---
@@ -139,7 +139,7 @@ A **Slash Command** is a user-invokable workflow that starts with `/` and trigge
 
 | Property | Value |
 |----------|-------|
-| **Invocation** | 👤 User types `/command-name` |
+| **Invocation** | 🙋‍♀️ User types `/command-name` |
 | **Location** | `.claude/commands/*.md` |
 | **Variables** | `$ARGUMENTS` for user input |
 | **Execution** | Synchronous, within main conversation |
@@ -167,7 +167,7 @@ Generate localization files for: $ARGUMENTS
 ### Usage Examples
 
 ```bash
-# 👤 User invokes
+# 🙋‍♀️ User invokes
 /generate fr-FR              # Single locale
 /generate fr                 # Language cluster
 /generate fr es de           # Multiple clusters
@@ -181,10 +181,10 @@ flowchart LR
     classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
 
-    U["👤 User: /generate fr-FR"]:::user --> CMD["🦴 Slash Command"]:::user
-    CMD --> MA["🧠 Main Agent"]:::main
+    U["🙋‍♀️📥 User: /generate fr-FR"]:::user --> CMD["🦴 Slash Command"]:::user
+    CMD --> MA["🐔💭 Main Agent"]:::main
     MA --> W["Workflow Execution"]
-    W --> R["✅ Result to User"]
+    W --> R["💁‍♀️📤 Result to User"]
 ```
 
 ---
@@ -202,7 +202,7 @@ A **Skill** is a reusable capability that provides the agent with specialized kn
 | **Invocation** | Skill tool or automatic based on context |
 | **Location** | `.claude/skills/*/SKILL.md` |
 | **Loading** | On-demand when relevant |
-| **Scope** | Enhances 🧠 main agent capabilities |
+| **Scope** | Enhances 🐔 main agent capabilities |
 
 ### File Structure
 
@@ -240,9 +240,9 @@ description: Use when implementing features - write tests first, then code
 ### Usage Example
 
 ```
-👤 User: "Add a validation function"
+🙋‍♀️📥 User: "Add a validation function"
 
-🧠 Agent: "I'm using the 📚 test-driven-development skill..."
+🐔💭 Agent: "I'm using the 📚 test-driven-development skill..."
 [Loads skill, follows TDD methodology]
 ```
 
@@ -251,16 +251,17 @@ description: Use when implementing features - write tests first, then code
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
     classDef skill fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef decision fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    REQ["👤 User Request"] --> CHECK{"📚 Skill Applicable?"}:::decision
+    REQ["🙋‍♀️📥 User Request"]:::user --> CHECK{"📚 Skill Applicable?"}:::decision
     CHECK -->|Yes| LOAD["📚 Load Skill"]:::skill
-    CHECK -->|No| DIRECT["Direct Execution"]
-    LOAD --> APPLY["Apply Methodology"]:::skill
-    APPLY --> EXEC["Execute with Skill"]
-    EXEC --> RESULT["✅ Enhanced Result"]
+    CHECK -->|No| DIRECT["🐔⚡ Direct Execution"]:::main
+    LOAD --> APPLY["🐔📚 Apply Methodology"]:::main
+    APPLY --> EXEC["🐔⚡ Execute with Skill"]:::main
+    EXEC --> RESULT["💁‍♀️📤 Enhanced Result"]
     DIRECT --> RESULT
 ```
 
@@ -343,17 +344,17 @@ A **Hook** is a shell command that executes automatically in response to specifi
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 sequenceDiagram
-    participant U as 👤 User
+    participant U as 🙋‍♀️ User
     participant H1 as 🪝 Pre-Hook
-    participant A as 🧠 Agent
-    participant T as 🔌 Tool
+    participant A as 🐔 Main Agent
+    participant T as 🔧 Tool
     participant H2 as 🪝 Post-Hook
 
-    U->>H1: Prompt received
+    U->>H1: 🙋‍♀️📥 Prompt received
     H1->>A: Context injected
-    A->>T: Execute tool
+    A->>T: 🐔🔧 Execute tool
     T->>H2: Tool completed
-    H2->>U: Final response
+    H2->>U: 💁‍♀️📤 Final response
 ```
 
 ---
@@ -367,29 +368,30 @@ flowchart TB
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
     classDef skill fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
-    classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
+    classDef nativeTool fill:#64748b,stroke:#475569,stroke-width:2px,color:#ffffff
+    classDef mcpTool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    subgraph UserInput["👤 User Input"]
+    subgraph UserInput["🙋‍♀️ USER INPUT"]
         SLASH["🦴 /command args"]:::user
-        PROMPT["Natural language"]:::user
+        PROMPT["🙋‍♀️📥 Natural language"]:::user
     end
 
-    subgraph MainAgent["🧠 Main Agent"]
-        MA["🧠 Claude Code"]:::main
+    subgraph MainAgent["🐔 MAIN AGENT"]
+        MA["🐔💭 Claude Code"]:::main
     end
 
-    subgraph Components["Components"]
+    subgraph Components["COMPONENTS"]
         CMD["🦴 Slash Commands"]:::user
         SKL["📚 Skills"]:::skill
-        SA["🤖 Subagents"]:::subagent
-        HOOK["🪝 Hooks"]:::main
+        SA["🐦 Subagents"]:::subagent
+        HOOK["🪝 Hooks"]:::skill
     end
 
-    subgraph Tools["🔌 Tools"]
+    subgraph Tools["🔧 TOOLS"]
         TASK["📤 Task Tool"]:::subagent
-        READ["Read"]:::tool
-        WRITE["Write"]:::tool
-        BASH["Bash"]:::tool
+        READ["🔧 Read"]:::nativeTool
+        WRITE["🔧 Write"]:::nativeTool
+        BASH["🔧 Bash"]:::nativeTool
     end
 
     SLASH --> CMD
@@ -409,12 +411,12 @@ flowchart TB
 
 ## Comparison Table
 
-| Aspect | 🤖 Subagent | 🦴 Slash Command | 📚 Skill | 🪝 Hook |
+| Aspect | 🐦 Subagent | 🦴 Slash Command | 📚 Skill | 🪝 Hook |
 |--------|----------|---------------|-------|------|
-| **Invoked by** | 📤 Task tool | 👤 User (`/`) | Context/Skill tool | Events |
+| **Invoked by** | 📤 Task tool | 🙋‍♀️ User (`/`) | Context/Skill tool | Events |
 | **Autonomy** | High | Low | Medium | Automatic |
 | **Context** | Isolated | Main conversation | Main conversation | System |
-| **Can spawn subagents** | ❌ No | Via 🧠 main agent | Via 🧠 main agent | ❌ No |
+| **Can spawn subagents** | ❌ No | Via 🐔 main agent | Via 🐔 main agent | ❌ No |
 | **Typical use** | Complex tasks | Workflows | Methodologies | Automation |
 | **File location** | `agents/*.md` | `commands/*.md` | `skills/*.md` | `settings.json` |
 
@@ -426,19 +428,22 @@ flowchart TB
 
 | Correct | Avoid |
 |---------|-------|
-| 🤖 Subagent | Sub-agent, sub agent, child agent |
+| 🐦 Subagent | Sub-agent, sub agent, child agent |
 | 🦴 Slash Command | Command, slash-command |
 | 📚 Skill | Capability, ability |
 | 🪝 Hook | Trigger, event handler |
-| 🧠 Main Agent | Parent agent, orchestrator |
+| 🐔 Main Agent | Parent agent, orchestrator |
 | 📤 Task tool | Spawn, delegate |
+| 🙋‍♀️ User (input) | 👤 User |
+| 💁‍♀️ User (output) | 👤 User |
+| 🔧 Native Tool | 🛠️ Tool |
 
 ### In Documentation
 
 ```markdown
 # Good
-The 🧠 Main Agent spawns a 🤖 Subagent via the 📤 Task tool.
-👤 Users invoke /generate to trigger the workflow.
+The 🐔 Main Agent spawns a 🐦 Subagent via the 📤 Task tool.
+🙋‍♀️ Users invoke /generate to trigger the workflow.
 
 # Avoid
 The parent spawns a child agent.
@@ -451,7 +456,7 @@ Users run the generate command.
 
 ### 📤 Task Tool
 
-The `Task` tool is the mechanism for spawning 🤖 Subagents:
+The `Task` tool is the mechanism for spawning 🐦 Subagents:
 
 ```python
 Task(

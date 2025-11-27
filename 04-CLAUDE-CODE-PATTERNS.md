@@ -56,11 +56,11 @@ These 7 patterns represent practical implementations for Claude Code, building o
 
 ### Definition
 
-🧠 Main Agent spawns specialized 🤖 Subagents via the 📤 `Task` tool to handle complex, domain-specific tasks.
+🐔 Main Agent spawns specialized 🐦 Subagents via the 📤 `Task` tool to handle complex, domain-specific tasks.
 
 ### Maps to Anthropic Pattern
 
-**Orchestrator-Workers** - The 🧠 Main Agent is the orchestrator, 🤖 Subagents are workers.
+**Orchestrator-Workers** - The 🐔 Main Agent is the orchestrator, 🐦 Subagents are workers.
 
 ### Architecture
 
@@ -71,11 +71,11 @@ flowchart TB
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
 
-    USER["👤 User Request"]:::user --> MA["🧠 Main Agent"]:::main
+    USER["🙋‍♀️📥 User Request"]:::user --> MA["🐔 Main Agent"]:::main
 
-    MA -->|"📤 Task(code-reviewer)"| SA1["🤖 Code Reviewer"]:::subagent
-    MA -->|"📤 Task(security-auditor)"| SA2["🤖 Security Auditor"]:::subagent
-    MA -->|"📤 Task(doc-writer)"| SA3["🤖 Doc Writer"]:::subagent
+    MA -->|"📤 Task(code-reviewer)"| SA1["🐦 Code Reviewer"]:::subagent
+    MA -->|"📤 Task(security-auditor)"| SA2["🐦 Security Auditor"]:::subagent
+    MA -->|"📤 Task(doc-writer)"| SA3["🐦 Doc Writer"]:::subagent
 
     SA1 -->|Report| MA
     SA2 -->|Report| MA
@@ -87,7 +87,7 @@ flowchart TB
 ### Implementation
 
 ```python
-# 🧠 Main Agent spawns 🤖 Subagents via 📤 Task tool
+# 🐔 Main Agent spawns 🐦 Subagents via 📤 Task tool
 
 # Sequential spawning
 Task(
@@ -103,7 +103,7 @@ Task(
 ]
 ```
 
-### 🤖 Subagent Definition
+### 🐦 Subagent Definition
 
 ```markdown
 # .claude/agents/code-reviewer.md
@@ -135,9 +135,9 @@ Review the provided code and report:
 
 | Rule | Explanation |
 |------|-------------|
-| **No nested subagents** | 🤖 Subagents cannot spawn other 🤖 subagents |
-| **Isolated context** | Each 🤖 subagent starts fresh, no shared memory |
-| **Report to orchestrator** | Results flow back to 🧠 Main Agent only |
+| **No nested subagents** | 🐦 Subagents cannot spawn other 🐦 subagents |
+| **Isolated context** | Each 🐦 subagent starts fresh, no shared memory |
+| **Report to orchestrator** | Results flow back to 🐔 Main Agent only |
 
 ### Use Cases
 
@@ -151,7 +151,7 @@ Review the provided code and report:
 
 ### Definition
 
-Load 📚 skills on-demand to enhance 🧠 agent capabilities for specific task types.
+Load 📚 skills on-demand to enhance 🐔 agent capabilities for specific task types.
 
 ### Maps to Anthropic Pattern
 
@@ -166,7 +166,7 @@ flowchart TB
     classDef skill fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef decision fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    REQ["👤 User Request"] --> MA["🧠 Main Agent"]:::main
+    REQ["🙋‍♀️📥 User Request"] --> MA["🐔 Main Agent"]:::main
     MA --> CHECK{"📚 Match Skills?"}:::decision
 
     CHECK -->|TDD Task| TDD["📚 test-driven-development"]:::skill
@@ -183,7 +183,7 @@ flowchart TB
 ### 📚 Skill Loading
 
 ```markdown
-# 🧠 Agent announces skill usage
+# 🐔 Agent announces skill usage
 "I'm using the 📚 test-driven-development skill to implement this feature."
 
 # 📚 Skill provides methodology
@@ -272,7 +272,7 @@ flowchart TB
     classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    MA["🧠 Main Agent"]:::main -->|Single Message| TOOLS
+    MA["🐔 Main Agent"]:::main -->|Single Message| TOOLS
 
     subgraph TOOLS["🚂 Parallel Tool Calls"]
         T1["🔌 Read file1.ts"]
@@ -350,7 +350,7 @@ gantt
 ### When to Use
 
 - Reading multiple independent files
-- Spawning multiple independent 🤖 subagents
+- Spawning multiple independent 🐦 subagents
 - Gathering information from multiple sources
 - Any operations without dependencies
 
@@ -373,7 +373,7 @@ result2 = Read(file_path=derived_path)
 
 ### Definition
 
-Spawn multiple isolated 🤖 instances handling independent domains with no shared state.
+Spawn multiple isolated 🐦 instances handling independent domains with no shared state.
 
 ### Maps to Anthropic Pattern
 
@@ -388,11 +388,11 @@ flowchart TB
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    MA["🧠 Main Agent"]:::main
+    MA["🐔 Main Agent"]:::main
 
-    MA -->|"Context: fr-FR"| C1["🤖 Clone: fr-FR"]:::subagent
-    MA -->|"Context: es-ES"| C2["🤖 Clone: es-ES"]:::subagent
-    MA -->|"Context: de-DE"| C3["🤖 Clone: de-DE"]:::subagent
+    MA -->|"Context: fr-FR"| C1["🐦 Clone: fr-FR"]:::subagent
+    MA -->|"Context: es-ES"| C2["🐦 Clone: es-ES"]:::subagent
+    MA -->|"Context: de-DE"| C3["🐦 Clone: de-DE"]:::subagent
 
     C1 -->|9 files| R1[Result: fr-FR]
     C2 -->|9 files| R2[Result: es-ES]
@@ -407,11 +407,11 @@ flowchart TB
 
 ### Key Characteristic
 
-Each 🤖 clone operates in complete isolation:
+Each 🐦 clone operates in complete isolation:
 - No shared memory
 - No inter-clone communication
 - Independent context windows
-- Results merge only at 🧠 orchestrator
+- Results merge only at 🐔 orchestrator
 
 ### Use Cases
 
@@ -527,7 +527,7 @@ else:
 
 ### Definition
 
-External code controls 🧠 agent invocation and workflow logic rather than pure prompt-based control.
+External code controls 🐔 agent invocation and workflow logic rather than pure prompt-based control.
 
 ### Maps to Anthropic Pattern
 
@@ -543,7 +543,7 @@ flowchart TB
 
     CODE["🎛️ External Code"]:::user --> LOOP{For each item}
 
-    LOOP --> INVOKE["🧠 Invoke Claude"]:::subagent
+    LOOP --> INVOKE["🐔 Invoke Claude"]:::subagent
     INVOKE --> RESULT[Get Result]
     RESULT --> PROCESS["🎛️ Process in Code"]
     PROCESS --> LOOP
@@ -589,7 +589,7 @@ merge_results(results)
 
 | Aspect | 🎛️ Programmatic | Prompt-Based |
 |--------|--------------|--------------|
-| **Control** | External code | 🧠 Agent decisions |
+| **Control** | External code | 🐔 Agent decisions |
 | **Flexibility** | Highly customizable | Limited to prompts |
 | **State** | External management | In-context |
 | **Error handling** | Try/catch | Agent retry |
@@ -607,7 +607,7 @@ merge_results(results)
 
 ### Definition
 
-Multi-step processes with explicit 👤 user confirmation at each phase using ❓ `AskUserQuestion`.
+Multi-step processes with explicit 🙆‍♀️ user confirmation at each phase using ❓ `AskUserQuestion`.
 
 ### Maps to Anthropic Pattern
 
@@ -618,19 +618,19 @@ Multi-step processes with explicit 👤 user confirmation at each phase using �
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 stateDiagram-v2
-    [*] --> Analysis: 👤 User Request
+    [*] --> Analysis: 🙋‍♀️📥 User Request
 
     Analysis --> Confirm1: Present findings
-    Confirm1 --> Planning: 👤 User approves
-    Confirm1 --> Analysis: 👤 User requests changes
+    Confirm1 --> Planning: 🙆‍♀️✅ User approves
+    Confirm1 --> Analysis: 🙆‍♀️❓ User requests changes
 
     Planning --> Confirm2: Present plan
-    Confirm2 --> Implementation: 👤 User approves
-    Confirm2 --> Planning: 👤 User requests changes
+    Confirm2 --> Implementation: 🙆‍♀️✅ User approves
+    Confirm2 --> Planning: 🙆‍♀️❓ User requests changes
 
     Implementation --> Confirm3: Show changes
-    Confirm3 --> Verification: 👤 User approves
-    Confirm3 --> Implementation: 👤 User requests changes
+    Confirm3 --> Verification: 🙆‍♀️✅ User approves
+    Confirm3 --> Implementation: 🙆‍♀️❓ User requests changes
 
     Verification --> [*]: ✅ Complete
 ```
@@ -646,7 +646,7 @@ flowchart LR
     subgraph Checkpoint["🧙 Confirmation Point"]
         SUMMARY[Summary of work]
         OPTIONS["❓ Options presented"]
-        WAIT[Wait for 👤 user]
+        WAIT[Wait for 🙆‍♀️ user]
     end
 
     WORK[Phase Work] --> Checkpoint
@@ -677,7 +677,7 @@ AskUserQuestion(
     }]
 )
 
-# 👤 User response determines next action
+# 🙆‍♀️ User response determines next action
 if response == "Approve":
     proceed_to_planning()
 elif response == "Details":
@@ -785,7 +785,7 @@ Found issues. Continue? (y/n)
 
 ### Permission Modes
 
-Control how 🤖 Subagents request permissions for tool usage.
+Control how 🐦 Subagents request permissions for tool usage.
 
 **Available Modes:**
 
@@ -818,7 +818,7 @@ flowchart LR
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
 
     WIZARD["🧙 User Confirms<br>Generation Plan"]:::wizard
-    SPAWN["📤 Spawn 🤖 Subagent<br>permissionMode: acceptEdits"]:::subagent
+    SPAWN["📤 Spawn 🐦 Subagent<br>permissionMode: acceptEdits"]:::subagent
     EXEC["✅ Autonomous Execution<br>No further prompts"]:::subagent
 
     WIZARD --> SPAWN --> EXEC
@@ -834,7 +834,7 @@ Practical limits for stable parallel execution.
 
 | Type | Recommended Max | Risk if Exceeded |
 |------|-----------------|------------------|
-| 🤖 Concurrent Subagents | **10-15** | Context overflow, memory pressure |
+| 🐦 Concurrent Subagents | **10-15** | Context overflow, memory pressure |
 | 🔌 MCP calls per subagent | **5** | Rate limit errors |
 | 📤 Task calls per message | **10** | API limits, timeouts |
 
@@ -842,10 +842,10 @@ Practical limits for stable parallel execution.
 
 ```
 # Instead of 39 parallel subagents for en-* cluster:
-Wave 1: 10 🤖 subagents (en-GB, en-CA, en-AU...)
-Wave 2: 10 🤖 subagents (en-IN, en-IE, en-NZ...)
-Wave 3: 10 🤖 subagents (en-ZA, en-SG, en-PH...)
-Wave 4:  8 🤖 subagents (remaining)
+Wave 1: 10 🐦 subagents (en-GB, en-CA, en-AU...)
+Wave 2: 10 🐦 subagents (en-IN, en-IE, en-NZ...)
+Wave 3: 10 🐦 subagents (en-ZA, en-SG, en-PH...)
+Wave 4:  8 🐦 subagents (remaining)
 ```
 
 ```mermaid
@@ -856,16 +856,16 @@ gantt
     axisFormat %s
 
     section Wave 1
-    10 🤖 subagents    :active, 0, 10
+    10 🐦 subagents    :active, 0, 10
 
     section Wave 2
-    10 🤖 subagents    :active, 10, 20
+    10 🐦 subagents    :active, 10, 20
 
     section Wave 3
-    10 🤖 subagents    :active, 20, 30
+    10 🐦 subagents    :active, 20, 30
 
     section Wave 4
-    8 🤖 subagents     :active, 30, 38
+    8 🐦 subagents     :active, 30, 38
 ```
 
 > **Empirical**: Test limits in your environment. Start conservative (5-10), increase gradually.
@@ -944,12 +944,12 @@ flowchart TB
     classDef checkpoint fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
     subgraph Wizard["🧙 Wizard Workflow"]
-        U["👤 User: /generate fr"] --> CONFIRM1{"❓ Confirm scope?"}
+        U["🙋‍♀️📥 User: /generate fr"] --> CONFIRM1{"❓ Confirm scope?"}
     end
 
     subgraph Orchestration["🎪 Subagent Orchestration"]
-        CONFIRM1 -->|Yes| ORCH["🧠 Main Agent"]:::main
-        ORCH -->|Primary| SA1["🤖 fr-FR Generator"]:::subagent
+        CONFIRM1 -->|Yes| ORCH["🐔 Main Agent"]:::main
+        ORCH -->|Primary| SA1["🐦 fr-FR Generator"]:::subagent
     end
 
     subgraph Parallel["🚂 Parallel Tool Calling"]
@@ -960,8 +960,8 @@ flowchart TB
     end
 
     subgraph MasterClone["🧬 Master-Clone"]
-        ORCH -->|Variants PARALLEL| SA2["🤖 fr-CA Generator"]:::subagent
-        ORCH -->|Variants PARALLEL| SA3["🤖 fr-BE Generator"]:::subagent
+        ORCH -->|Variants PARALLEL| SA2["🐦 fr-CA Generator"]:::subagent
+        ORCH -->|Variants PARALLEL| SA3["🐦 fr-BE Generator"]:::subagent
     end
 
     subgraph Checkpoint["🖥️ Multi-Window Context"]

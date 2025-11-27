@@ -81,13 +81,13 @@ flowchart TD
     classDef pattern fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
     classDef decision fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    START["👤 New Task"]:::start --> Q1{Single step?}:::decision
+    START["🙋‍♀️ New Task"]:::start --> Q1{Single step?}:::decision
 
     Q1 -->|Yes| DIRECT["Direct Execution"]:::pattern
     Q1 -->|No| Q2{Steps independent?}:::decision
 
     Q2 -->|Yes| Q3{Same domain?}:::decision
-    Q2 -->|No| Q4{Requires 👤 approval?}:::decision
+    Q2 -->|No| Q4{Requires 🙋‍♀️ approval?}:::decision
 
     Q3 -->|Yes| PARALLEL["🚂 Parallel Tool Calling"]:::pattern
     Q3 -->|No| MASTERCLONE["🧬 Master-Clone"]:::pattern
@@ -117,7 +117,7 @@ flowchart LR
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
 
     subgraph Small["✅ Small PR (1-3 files)"]
-        S1["🧠 Direct review by Main Agent"]
+        S1["🐔 Direct review by Main Agent"]
     end
 
     subgraph Medium["⚠️ Medium PR (4-10 files)"]
@@ -128,9 +128,9 @@ flowchart LR
 
     subgraph Large["❌ Large PR (10+ files)"]
         L1["🎪 Subagent Orchestration"]
-        L2["🤖 Security Subagent"]:::subagent
-        L3["🤖 Performance Subagent"]:::subagent
-        L4["🤖 Style Subagent"]:::subagent
+        L2["🐦 Security Subagent"]:::subagent
+        L3["🐦 Performance Subagent"]:::subagent
+        L4["🐦 Style Subagent"]:::subagent
         L1 --> L2 & L3 & L4
     end
 
@@ -154,7 +154,7 @@ flowchart TD
     classDef skill fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef decision fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    FEATURE["👤 New Feature"] --> Q1{Methodology defined?}:::decision
+    FEATURE["🙋‍♀️ New Feature"] --> Q1{Methodology defined?}:::decision
 
     Q1 -->|TDD Required| TDD["🎓 Progressive Skills: TDD"]:::skill
     Q1 -->|Free form| Q2{Multiple components?}:::decision
@@ -185,7 +185,7 @@ flowchart TD
     classDef checkpoint fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    MIGRATION["👤 Data Migration"] --> WIZARD["🧙 Wizard Workflows"]:::wizard
+    MIGRATION["🙋‍♀️ Data Migration"] --> WIZARD["🧙 Wizard Workflows"]:::wizard
 
     WIZARD --> P1["🏗️ Phase 1: Analysis"]
     P1 --> CONFIRM1{"❓ User confirms?"}:::checkpoint
@@ -214,25 +214,25 @@ flowchart TB
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
     classDef checkpoint fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    GEN["👤 Generate Locales"] --> WIZARD["🧙 Wizard: Confirm scope"]:::wizard
+    GEN["🙋‍♀️ Generate Locales"] --> WIZARD["🧙 Wizard: Confirm scope"]:::wizard
 
     WIZARD --> Q1{Single or cluster?}
 
     Q1 -->|Single| SINGLE[Sequential phases]
     Q1 -->|Cluster| CLUSTER["🎪 Orchestration"]
 
-    CLUSTER --> PRIMARY["🤖 Primary locale first"]:::subagent
+    CLUSTER --> PRIMARY["🐦 Primary locale first"]:::subagent
     PRIMARY --> VARIANTS["🧬 Variants in parallel"]
 
-    VARIANTS --> MC1["🤖 Master-Clone: fr-CA"]:::subagent
-    VARIANTS --> MC2["🤖 Master-Clone: fr-BE"]:::subagent
-    VARIANTS --> MC3["🤖 Master-Clone: fr-CH"]:::subagent
+    VARIANTS --> MC1["🐦 Master-Clone: fr-CA"]:::subagent
+    VARIANTS --> MC2["🐦 Master-Clone: fr-BE"]:::subagent
+    VARIANTS --> MC3["🐦 Master-Clone: fr-CH"]:::subagent
 
     MC1 & MC2 & MC3 --> CHECK["🖥️ Multi-Window: Checkpoint"]:::checkpoint
 ```
 
 **Selection:**
-- 👤 User confirmation → **🧙 Wizard Workflows**
+- 🙋‍♀️ User confirmation → **🧙 Wizard Workflows**
 - Primary then variants → **🎪 Subagent Orchestration**
 - Variants parallel → **🧬 Master-Clone**
 - Long workflow → **🖥️ Multi-Window Context**
@@ -264,15 +264,15 @@ flowchart LR
     classDef checkpoint fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
     subgraph Combo1["🧙 Wizard + 🎪 Subagent"]
-        W1["❓ Confirm"]:::wizard --> S1["🤖 Spawn agents"]:::subagent
+        W1["❓ Confirm"]:::wizard --> S1["🐦 Spawn agents"]:::subagent
     end
 
     subgraph Combo2["🎪 Subagent + 🚂 Parallel"]
-        S2["🧠 Orchestrator"] --> P1["🤖 Parallel agents"]:::parallel
+        S2["🐔 Orchestrator"] --> P1["🐦 Parallel agents"]:::parallel
     end
 
     subgraph Combo3["🧬 Master-Clone + 🖥️ Multi-Window"]
-        MC["🤖 Isolated clones"]:::subagent --> MW["🖥️ Checkpoints"]:::checkpoint
+        MC["🐦 Isolated clones"]:::subagent --> MW["🖥️ Checkpoints"]:::checkpoint
     end
 ```
 
@@ -289,13 +289,13 @@ flowchart LR
 Rule: If it takes 1 step, don't add patterns
 ```
 
-### 2. ❌ 🤖 Subagents Spawning 🤖 Subagents
+### 2. ❌ 🐦 Subagents Spawning 🐦 Subagents
 
 ```
-❌ WRONG: 🤖 Subagent A spawns 🤖 Subagent B
-✅ RIGHT: 🧠 Main Agent spawns both A and B
+❌ WRONG: 🐦 Subagent A spawns 🐦 Subagent B
+✅ RIGHT: 🐔 Main Agent spawns both A and B
 
-Rule: Only 🧠 Main Agent can spawn 🤖 subagents
+Rule: Only 🐔 Main Agent can spawn 🐦 subagents
 ```
 
 ### 3. ❌ 🚂 Parallel with Dependencies
@@ -330,10 +330,10 @@ Rule: 🧙 Wizard for destructive/critical operations only
 Rule: Any workflow > 10 minutes needs 🖥️ Multi-Window Context
 ```
 
-### 6. ❌ Too Many Parallel 🤖 Subagents
+### 6. ❌ Too Many Parallel 🐦 Subagents
 
 ```
-❌ WRONG: 39 🤖 subagents in parallel (context overflow)
+❌ WRONG: 39 🐦 subagents in parallel (context overflow)
 ✅ RIGHT: Batch into waves of 10-15
 
 Rule: Max 10-15 concurrent subagents per wave
@@ -381,7 +381,7 @@ flowchart TD
 
 **Critical**: Always 🖥️ checkpoint BEFORE `/compact` - context is lost after compaction!
 
-### How Many Parallel 🤖 Subagents
+### How Many Parallel 🐦 Subagents
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
@@ -391,21 +391,21 @@ flowchart TD
     classDef danger fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#ffffff
     classDef decision fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
 
-    COUNT["🤖 How many subagents?"] --> Q1{"Count?"}:::decision
+    COUNT["🐦 How many subagents?"] --> Q1{"Count?"}:::decision
 
     Q1 -->|"1-5"| SAFE["✅ Safe: Direct parallel"]:::safe
     Q1 -->|"6-10"| CAUTION["⚠️ Caution: Monitor performance"]:::caution
     Q1 -->|"11-15"| LIMIT["⚠️ Limit: Test first"]:::caution
     Q1 -->|"16+"| BATCH["❌ Batch: Split into waves"]:::danger
 
-    BATCH --> WAVE["Wave 1: 10 🤖<br/>Wave 2: 10 🤖<br/>..."]:::safe
+    BATCH --> WAVE["Wave 1: 10 🐦<br/>Wave 2: 10 🐦<br/>..."]:::safe
 ```
 
 **Recommended limits:**
 
 | Type | Max | Action if exceeded |
 |------|-----|-------------------|
-| 🤖 Concurrent subagents | 10-15 | Batch into waves |
+| 🐦 Concurrent subagents | 10-15 | Batch into waves |
 | 🔌 MCP calls per agent | 5 | Respect rate limits |
 | 📤 Task calls per message | 10 | Split messages |
 
@@ -422,7 +422,7 @@ flowchart TD
     classDef checkpoint fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef decision fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    START(("👤 Start")):::start --> RISK{Destructive<br/>operation?}:::decision
+    START(("🙋‍♀️ Start")):::start --> RISK{Destructive<br/>operation?}:::decision
 
     RISK -->|Yes| WIZARD["🧙 Wizard Workflows"]:::wizard
     RISK -->|No| COMPLEX{Complex<br/>task?}:::decision

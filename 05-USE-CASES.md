@@ -60,15 +60,15 @@ flowchart TB
     classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    USER["👤 Research Query"] --> LEAD["🧠 Lead Agent"]:::main
+    USER["🙋‍♀️ Research Query"] --> LEAD["🐔 Lead Agent"]:::main
 
     LEAD -->|"📤 Task tool"| PLAN["Plan research strategy"]
     PLAN --> SPAWN["Spawn specialized researchers"]
 
     subgraph PARALLEL["🚂 Parallel Execution"]
-        R1["🤖 Academic Researcher"]:::subagent
-        R2["🤖 Industry Researcher"]:::subagent
-        R3["🤖 News Researcher"]:::subagent
+        R1["🐦 Academic Researcher"]:::subagent
+        R2["🐦 Industry Researcher"]:::subagent
+        R3["🐦 News Researcher"]:::subagent
     end
 
     SPAWN --> R1 & R2 & R3
@@ -77,8 +77,8 @@ flowchart TB
     R2 --> T2["🔌 Firecrawl"]:::tool
     R3 --> T3["🔌 WebSearch"]:::tool
 
-    T1 & T2 & T3 --> COLLECT["🧠 Lead Agent collects"]:::main
-    COLLECT --> SYNTH["🤖 Synthesis Agent"]:::subagent
+    T1 & T2 & T3 --> COLLECT["🐔 Lead Agent collects"]:::main
+    COLLECT --> SYNTH["🐦 Synthesis Agent"]:::subagent
     SYNTH --> REPORT["✅ Final Report"]:::state
 ```
 
@@ -137,7 +137,7 @@ flowchart TB
     classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    PR["👤 PR Submitted"] --> ORCH["🧠 Review Orchestrator"]:::main
+    PR["🙋‍♀️ PR Submitted"] --> ORCH["🐔 Review Orchestrator"]:::main
 
     ORCH -->|"Analyze scope"| SIZE{PR Size?}
 
@@ -146,14 +146,14 @@ flowchart TB
     SIZE -->|"Large"| SUBAGENT["🎪 Specialized Reviews"]
 
     subgraph SPECIALISTS["Specialist Subagents"]
-        SEC["🤖 Security"]:::subagent
-        PERF["🤖 Performance"]:::subagent
-        STYLE["🤖 Style"]:::subagent
-        TEST["🤖 Test Coverage"]:::subagent
+        SEC["🐦 Security"]:::subagent
+        PERF["🐦 Performance"]:::subagent
+        STYLE["🐦 Style"]:::subagent
+        TEST["🐦 Test Coverage"]:::subagent
     end
 
     SUBAGENT --> SEC & PERF & STYLE & TEST
-    SEC & PERF & STYLE & TEST --> MERGE["🧠 Merge Findings"]:::main
+    SEC & PERF & STYLE & TEST --> MERGE["🐔 Merge Findings"]:::main
     MERGE --> REPORT["✅ Review Report"]:::state
 
     DIRECT --> REPORT
@@ -224,15 +224,15 @@ flowchart TB
 
     CMD["🦴 /generate fr"] --> WIZARD["🧙 Confirm Scope"]:::wizard
 
-    WIZARD -->|"❓ User approves"| PRIMARY["🤖 Generate fr-FR"]:::subagent
+    WIZARD -->|"❓ User approves"| PRIMARY["🐦 Generate fr-FR"]:::subagent
 
     PRIMARY --> CHECK1["🖥️ Checkpoint"]:::checkpoint
     CHECK1 --> VARIANTS["🧬 Master-Clone Variants"]
 
     subgraph ISOLATED["Isolated Contexts"]
-        V1["🤖 fr-CA"]:::subagent
-        V2["🤖 fr-BE"]:::subagent
-        V3["🤖 fr-CH"]:::subagent
+        V1["🐦 fr-CA"]:::subagent
+        V2["🐦 fr-BE"]:::subagent
+        V3["🐦 fr-CH"]:::subagent
     end
 
     VARIANTS --> V1 & V2 & V3
@@ -279,7 +279,7 @@ flowchart TB
     classDef skill fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
 
-    USER["👤 User Request"] --> ROUTER["🧠 Main Agent"]:::main
+    USER["🙋‍♀️ User Request"] --> ROUTER["🐔 Main Agent"]:::main
 
     ROUTER --> CLASSIFY{"🚦 Classify Intent"}
 
@@ -340,13 +340,13 @@ flowchart TB
     classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    TICKET["👤 Customer Ticket"] --> TRIAGE["🧠 Triage Agent"]:::main
+    TICKET["🙋‍♀️ Customer Ticket"] --> TRIAGE["🐔 Triage Agent"]:::main
 
     TRIAGE --> CLASSIFY{"🚦 Issue Type?"}
 
-    CLASSIFY -->|"Billing"| BILLING["🤖 Billing Agent"]:::subagent
-    CLASSIFY -->|"Technical"| TECH["🤖 Tech Support"]:::subagent
-    CLASSIFY -->|"General"| GEN["🤖 General Support"]:::subagent
+    CLASSIFY -->|"Billing"| BILLING["🐦 Billing Agent"]:::subagent
+    CLASSIFY -->|"Technical"| TECH["🐦 Tech Support"]:::subagent
+    CLASSIFY -->|"General"| GEN["🐦 General Support"]:::subagent
     CLASSIFY -->|"Complex"| ESCALATE["🧙 Human Escalation"]:::wizard
 
     BILLING --> KB["🔌 Knowledge Base"]
@@ -354,7 +354,7 @@ flowchart TB
     GEN --> KB
 
     KB --> RESOLVE["✅ Resolution"]:::state
-    ESCALATE --> HUMAN["👤 Human Agent"]
+    ESCALATE --> HUMAN["🙋‍♀️ Human Agent"]
 ```
 
 ### Patterns Used
@@ -398,7 +398,7 @@ flowchart TB
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
     classDef error fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#ffffff
 
-    START["👤 /migrate source target"] --> WIZARD["🧙 Wizard: Confirm"]:::wizard
+    START["🙋‍♀️ /migrate source target"] --> WIZARD["🧙 Wizard: Confirm"]:::wizard
 
     WIZARD -->|"❓ Approved"| P1["🏗️ Phase 1: Analyze"]
     P1 --> C1["🖥️ Checkpoint"]:::checkpoint

@@ -49,27 +49,31 @@
 │                           EMOJI QUICK REFERENCE                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  COMPONENTS                          CLAUDE CODE PATTERNS                   │
-│  ──────────                          ────────────────────                   │
-│  👤 User                             🏎️ Direct Execution                    │
-│  🦴 Slash Command                    🎪 Subagent Orchestration              │
-│  🧠 Main Agent                       🚂 Parallel Tool Calling               │
-│  📚 Skill                            🧬 Master-Clone                        │
-│  🤖 Subagent                         🧙 Wizard Workflow                     │
-│  📤 Task tool                        🖥️ Multi-Window Context                │
-│  🔌 MCP Tool                         🎓 Progressive Skills                  │
-│  💾 State                            🎛️ Programmatic Orchestration          │
-│  🪝 Hook                                                                    │
-│  ❓ AskUserQuestion                  ANTHROPIC RESEARCH PATTERNS            │
-│                                      ───────────────────────                │
-│  STATUS                              ⛓️ Prompt Chaining                     │
-│  ──────                              🚦 Routing                             │
-│  ✅ Success    ❌ Error              🛤️ Parallelization                     │
-│  ⚠️ Warning    🔄 Progress           🎭 Orchestrator-Workers                │
-│  ⏳ Pending    ⏭️ Skip               👨‍🔧 Evaluator-Optimizer                 │
-│                                      🐔 Autonomous Agents                   │
-│  PHASES                                                                     │
-│  ──────                                                                     │
+│  ACTEURS                             CLAUDE CODE PATTERNS                   │
+│  ───────                             ────────────────────                   │
+│  🙆‍♀️ User (neutral)                  🏎️ Direct Execution                    │
+│  🙋‍♀️ User (input)                    🎪 Subagent Orchestration              │
+│  💁‍♀️ User (output)                   🚂 Parallel Tool Calling               │
+│  🐔 Main Agent                       🧬 Master-Clone                        │
+│  🐦 Subagent                         🧙 Wizard Workflow                     │
+│                                      🖥️ Multi-Window Context                │
+│  COMPONENTS                          🎓 Progressive Skills                  │
+│  ──────────                          🎛️ Programmatic Orchestration          │
+│  🦴 Slash Command                                                           │
+│  📚 Skill                            ANTHROPIC RESEARCH PATTERNS            │
+│  📤 Task tool                        ───────────────────────                │
+│  🪝 Hook                             ⛓️ Prompt Chaining                     │
+│  💾 State                            🚦 Routing                             │
+│  ❓ AskUserQuestion                  🛤️ Parallelization                     │
+│                                      🎭 Orchestrator-Workers                │
+│  TOOLS                               👨‍🔧 Evaluator-Optimizer                 │
+│  ─────                               🦅 Autonomous Agents                   │
+│  🔧 Native Tool                                                             │
+│  🔌 MCP Tool                         STATUS                                 │
+│  💁‍♀️ User Interaction                ──────                                 │
+│                                      ✅ Success    ❌ Error                 │
+│  PHASES                              ⚠️ Warning    🔄 Progress              │
+│  ──────                              ⏳ Pending    ⏭️ Skip                  │
 │  🏗️ Phase 1 (Foundation)                                                   │
 │  🔗 Phase 2 (Formatting)                                                    │
 │  📝 Phase 3 (Content)                                                       │
@@ -95,7 +99,7 @@
 │  │  • 🛤️ Parallelization       │    │  • 🎓 Progressive Skills    │        │
 │  │  • 🎭 Orchestrator-Workers  │    │  • 🚂 Parallel Tool Calling │        │
 │  │  • 👨‍🔧 Evaluator-Optimizer   │    │  • 🧬 Master-Clone          │        │
-│  │  • 🐔 Autonomous Agents     │    │  • 🖥️ Multi-Window Context  │        │
+│  │  • 🦅 Autonomous Agents     │    │  • 🖥️ Multi-Window Context  │        │
 │  │                             │    │  • 🎛️ Programmatic Orch.    │        │
 │  │  Source: "Building          │    │  • 🧙 Wizard Workflows      │        │
 │  │  Effective Agents" paper    │    │  Source: Claude Code CLI    │        │
@@ -106,7 +110,7 @@
 │  ┌─────────────────────────────────────────────────────────────────┐       │
 │  │                    CLAUDE CODE COMPONENTS                        │       │
 │  │  ─────────────────────────────────────────────────────────────  │       │
-│  │   🤖 Subagent  │  🦴 Slash Command  │  📚 Skill  │  🪝 Hook     │       │
+│  │   🐦 Subagent  │  🦴 Slash Command  │  📚 Skill  │  🪝 Hook     │       │
 │  └─────────────────────────────────────────────────────────────────┘       │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -120,7 +124,7 @@
 
 | Component | Emoji | Definition | File Location |
 |-----------|-------|------------|---------------|
-| **Subagent** | 🤖 | Specialized agent spawned via `Task` tool | `.claude/agents/*.md` |
+| **Subagent** | 🐦 | Specialized agent spawned via `Task` tool | `.claude/agents/*.md` |
 | **Slash Command** | 🦴 | User-invokable command starting with `/` | `.claude/commands/*.md` |
 | **Skill** | 📚 | Reusable capability the agent possesses | `.claude/skills/*.md` |
 | **Hook** | 🪝 | Shell command triggered by events | `.claude/settings.json` |
@@ -133,28 +137,29 @@ flowchart TB
     classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
     classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
     classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
-    classDef tool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
+    classDef nativeTool fill:#64748b,stroke:#475569,stroke-width:2px,color:#ffffff
+    classDef mcpTool fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
     classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
 
-    subgraph L1["👤 User Layer"]
-        U["👤 User Input"]:::user
+    subgraph L1["🙋‍♀️ USER LAYER"]
+        U["🙋‍♀️📥 User Input"]:::user
     end
 
-    subgraph L2["🧠 Main Agent Layer"]
-        MA["🧠 Claude Code Main Agent"]:::main
+    subgraph L2["🐔 MAIN AGENT LAYER"]
+        MA["🐔💭 Claude Code Main Agent"]:::main
     end
 
-    subgraph L3["🔀 Delegation Layer"]
+    subgraph L3["🔀 DELEGATION LAYER"]
         CMD["🦴 Slash Commands"]:::user
         SKILL["📚 Skills"]:::main
     end
 
-    subgraph L4["⚡ Execution Layer"]
-        SA["🤖 Subagents"]:::subagent
-        TOOLS["🛠️🔌🖐️ Tools"]:::tool
+    subgraph L4["⚡ EXECUTION LAYER"]
+        SA["🐦⚡ Subagents"]:::subagent
+        TOOLS["🔧🔌💁‍♀️ Tools"]:::mcpTool
     end
 
-    subgraph L5["💾 State Layer"]
+    subgraph L5["💾 STATE LAYER"]
         MEM["💾 Memory/Context"]:::state
         FILES["💾 File System"]:::state
     end
@@ -178,9 +183,9 @@ flowchart TB
 
 ### Critical Rule
 
-> **🤖 Subagents cannot spawn other subagents.**
+> **🐦 Subagents cannot spawn other subagents.**
 >
-> All delegation must go through the 🧠 Main Agent.
+> All delegation must go through the 🐔 Main Agent.
 
 ---
 
@@ -206,11 +211,20 @@ flowchart TB
 ```mermaid
 mindmap
   root((Agentic System))
-    Components
-      🤖 Subagent
-        📤 Task tool spawns
-        Autonomous execution
+    Acteurs
+      🙋‍♀️ User
+        Sends input 📥
+        Receives output 📤
+        Validates ✅
+      🐔 Main Agent
+        Orchestrates 💭
+        Routes 🚦
+        Spawns 🪺
+      🐦 Subagent
+        Executes ⚡
+        Returns 📤
         Cannot spawn subagents
+    Components
       🦴 Slash Command
         User invokes with /
         Triggers workflows
@@ -221,8 +235,8 @@ mindmap
         Event-driven
         Shell commands
     Layers
-      👤 User Layer
-      🧠 Main Agent Layer
+      🙋‍♀️ User Layer
+      🐔 Main Agent Layer
       🔀 Delegation Layer
       ⚡ Execution Layer
       💾 State Layer
@@ -232,7 +246,7 @@ mindmap
       🛤️ Parallelization
       🎭 Orchestrator-Workers
       👨‍🔧 Evaluator-Optimizer
-      🐔 Autonomous Agents
+      🦅 Autonomous Agents
     Implementation Patterns
       🏎️ Direct Execution
       🎪 Subagent Orchestration
@@ -282,6 +296,6 @@ These patterns originate from Claude/Anthropic but many apply across AI framewor
 
 [🏠 Home](README.md) • [01 Terminology →](01-OFFICIAL-TERMINOLOGY.md)
 
-*Last updated: 2025-01-27*
+*Last updated: 2025-11-27*
 
 </div>

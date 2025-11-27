@@ -23,7 +23,8 @@
 | 3 | [🛤️ Parallelization](#pattern-3-️-parallelization) | Concurrent execution |
 | 4 | [🎭 Orchestrator-Workers](#pattern-4--orchestrator-workers) | Manager + specialists |
 | 5 | [👨‍🔧 Evaluator-Optimizer](#pattern-5-️-evaluator-optimizer) | Iterative refinement |
-| 6 | [🐔 Autonomous Agents](#pattern-6--autonomous-agents) | Self-directed execution |
+| 6 | [🦅 Autonomous Agents](#pattern-6--autonomous-agents) | Self-directed execution |
+| ⚔️ | [Pattern Comparisons](#pattern-comparisons) | Side-by-side VS diagrams |
 
 ---
 
@@ -38,7 +39,7 @@ These patterns come from **Anthropic's research paper "Building Effective Agents
 │                                                                             │
 │   1. ⛓️ Prompt Chaining       4. 🎭 Orchestrator-Workers                    │
 │   2. 🚦 Routing               5. 👨‍🔧 Evaluator-Optimizer                     │
-│   3. 🛤️ Parallelization       6. 🐔 Autonomous Agents                       │
+│   3. 🛤️ Parallelization       6. 🦅 Autonomous Agents                       │
 │                                                                             │
 │   Source: "Building Effective Agents" - Anthropic Research, Dec 2024        │
 │                                                                             │
@@ -56,17 +57,15 @@ Breaking a task into sequential steps where each step's output becomes the next 
 ### Diagram
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart LR
-    INPUT[Input] --> P1[Prompt 1]
-    P1 --> O1[Output 1]
-    O1 --> P2[Prompt 2]
-    P2 --> O2[Output 2]
-    O2 --> P3[Prompt 3]
-    P3 --> FINAL[Final Output]
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
 
-    style P1 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style P2 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style P3 fill:#6366f1,stroke:#4f46e5,color:#fff
+    USER["🙋‍♀️📥 User Request"]:::user --> P1["🐔💭 Step 1"]:::main
+    P1 -->|"🐔📤"| P2["🐔💭 Step 2"]:::main
+    P2 -->|"🐔📤"| P3["🐔💭 Step 3"]:::main
+    P3 -->|"🐔📤"| OUT["💁‍♀️📤 User Receives"]:::user
 ```
 
 ### Use Cases
@@ -112,23 +111,21 @@ Directing inputs to specialized handlers based on classification or intent.
 ### Diagram
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
-    INPUT[Input] --> ROUTER{Router}
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
+    classDef idle fill:#94a3b8,stroke:#64748b,stroke-width:2px,color:#ffffff
 
-    ROUTER -->|Type A| HA[Handler A]
-    ROUTER -->|Type B| HB[Handler B]
-    ROUTER -->|Type C| HC[Handler C]
-    ROUTER -->|Unknown| DEFAULT[Default Handler]
+    INPUT["🙋‍♀️📥 User Request"]:::user --> ROUTER{"🐔🚦 Route"}:::main
 
-    HA --> OUTPUT[Output]
-    HB --> OUTPUT
-    HC --> OUTPUT
-    DEFAULT --> OUTPUT
+    ROUTER -.->|"Type A"| HA["🐦💤 Handler A"]:::idle
+    ROUTER -->|"🐔🪺 Type B"| HB["🐦⚡ Handler B"]:::subagent
+    ROUTER -.->|"Type C"| HC["🐦💤 Handler C"]:::idle
+    ROUTER -.->|"Unknown"| DEFAULT["🐔💤 Default"]:::idle
 
-    style ROUTER fill:#f59e0b,stroke:#d97706,color:#fff
-    style HA fill:#6366f1,stroke:#4f46e5,color:#fff
-    style HB fill:#6366f1,stroke:#4f46e5,color:#fff
-    style HC fill:#6366f1,stroke:#4f46e5,color:#fff
+    HB -->|"🐦📤"| FINAL["💁‍♀️📤 User Receives"]:::user
 ```
 
 ### Use Cases
@@ -175,59 +172,104 @@ def route(input):
 
 Executing independent tasks simultaneously and merging results.
 
-### Diagram
+### Core Concept
 
 ```mermaid
-flowchart TB
-    INPUT[Input] --> SPLIT[Split]
-
-    SPLIT --> T1[Task 1]
-    SPLIT --> T2[Task 2]
-    SPLIT --> T3[Task 3]
-
-    T1 --> MERGE[Merge]
-    T2 --> MERGE
-    T3 --> MERGE
-
-    MERGE --> OUTPUT[Output]
-
-    style SPLIT fill:#10b981,stroke:#059669,color:#fff
-    style MERGE fill:#10b981,stroke:#059669,color:#fff
-    style T1 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style T2 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style T3 fill:#6366f1,stroke:#4f46e5,color:#fff
-```
-
-### Types of Parallelization
-
-```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart LR
-    subgraph Sectioning["Sectioning"]
-        S_IN[Input] --> S_SPLIT[Split by section]
-        S_SPLIT --> S1[Section 1]
-        S_SPLIT --> S2[Section 2]
-        S1 --> S_MERGE[Merge]
-        S2 --> S_MERGE
-    end
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
 
-    subgraph Voting["Voting"]
-        V_IN[Input] --> V_COPY[Same task 3x]
-        V_COPY --> V1[Attempt 1]
-        V_COPY --> V2[Attempt 2]
-        V_COPY --> V3[Attempt 3]
-        V1 --> VOTE[Vote/Best]
-        V2 --> VOTE
-        V3 --> VOTE
-    end
+    IN["🙋‍♀️📥"]:::user --> SPLIT["🐔🔀 Split"]:::main
+    SPLIT -->|"🐔🪺"| A["🐦⚡"]:::parallel
+    SPLIT -->|"🐔🪺"| B["🐦⚡"]:::parallel
+    SPLIT -->|"🐔🪺"| C["🐦⚡"]:::parallel
+    A -->|"🐦📤"| MERGE["🐔🌀 Merge"]:::main
+    B -->|"🐦📤"| MERGE
+    C -->|"🐦📤"| MERGE
+    MERGE -->|"🐔📤"| OUT["💁‍♀️📤"]:::user
 ```
 
-### Use Cases
+> **Key insight**: Run multiple tasks **simultaneously**, combine results at the end.
 
-| Type | Use Case | Example |
-|------|----------|---------|
-| **Sectioning** | Large documents | Review chapters in parallel |
-| **Voting** | Critical decisions | Multiple reviews, consensus |
-| **Independent** | Unrelated tasks | Generate + Test + Document |
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ⚠️  IMPORTANT: Parallelization vs Orchestrator-Workers                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  In Parallelization, all spawned subagents are IDENTICAL.                   │
+│  Same prompt, same capabilities. They are INTERCHANGEABLE.                  │
+│                                                                             │
+│  🛤️ Parallelization:      🐦⚡ = 🐦⚡ = 🐦⚡   (clones)                       │
+│  🎭 Orchestrator-Workers:  🐦🔒 ≠ 🐦⚡ ≠ 🐦🎨   (specialists)                 │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 2 Types of Parallelization
+
+#### Type 1: 🛤️ Sectioning (Split DATA)
+
+Split large data into chunks, process each chunk the same way, combine all results.
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
+flowchart LR
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+
+    S_IN["🙋‍♀️📥 100 files"]:::user --> S_SPLIT["🐔🔀"]:::main
+    S_SPLIT -->|"🐔🪺"| S1["🐦⚡ Files 1-50"]:::parallel
+    S_SPLIT -->|"🐔🪺"| S2["🐦⚡ Files 51-100"]:::parallel
+    S1 -->|"🐦📤"| S_MERGE["🐔🌀 Combine ALL"]:::main
+    S2 -->|"🐦📤"| S_MERGE
+    S_MERGE -->|"🐔📤"| S_OUT["💁‍♀️📤"]:::user
+```
+
+#### Type 2: 🗳️ Voting (Same TASK, pick BEST)
+
+Run the same task multiple times, compare results, pick the best one.
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
+flowchart LR
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+    classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
+    classDef success fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
+
+    V_IN["🙋‍♀️📥 Write headline"]:::user --> V_COPY["🐔🧬 3 attempts"]:::main
+    V_COPY -->|"🐔🪺"| V1["🐦⚡ Version A"]:::parallel
+    V_COPY -->|"🐔🪺"| V2["🐦⚡ Version B"]:::parallel
+    V_COPY -->|"🐔🪺"| V3["🐦⚡ Version C"]:::parallel
+    V1 -->|"🐦📤"| VOTE{"🐔🗳️ Compare"}:::wizard
+    V2 -->|"🐦📤"| VOTE
+    V3 -->|"🐦📤"| VOTE
+    VOTE -->|"🐔✅ B wins"| BEST["🏆 Best"]:::success
+```
+
+### Summary
+
+| Type | Workers | Input | Output |
+|------|---------|-------|--------|
+| **🛤️ Sectioning** | IDENTICAL | Different DATA chunks | Combine ALL |
+| **🗳️ Voting** | IDENTICAL | Same DATA | Pick ONE best |
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  💡 KEY: Workers are IDENTICAL, only the ARGUMENT changes                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  Sectioning:  Same worker + Different data    → "Analyze chunk 1", "...2"  │
+│  Voting:      Same worker + Same data         → "Write headline" x3        │
+│                                                                             │
+│  If you need DIFFERENT workers → use 🎭 Orchestrator-Workers instead        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ### When to Use
 
@@ -252,25 +294,26 @@ A central orchestrator delegates tasks to specialized workers and synthesizes re
 ### Diagram
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
-    INPUT[Complex Task] --> ORCH[Orchestrator]
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
 
-    ORCH -->|"Subtask 1"| W1[Worker 1]
-    ORCH -->|"Subtask 2"| W2[Worker 2]
-    ORCH -->|"Subtask 3"| W3[Worker 3]
+    INPUT["🙋‍♀️📥 Review this PR"]:::user --> ORCH["🐔🎭 Orchestrator"]:::main
 
-    W1 -->|Result 1| ORCH
-    W2 -->|Result 2| ORCH
-    W3 -->|Result 3| ORCH
+    ORCH -->|"🐔🪺 Check vulns"| W1["🐦🔒 Security Expert"]:::subagent
+    ORCH -->|"🐔🪺 Check perf"| W2["🐦⚡ Performance Expert"]:::subagent
+    ORCH -->|"🐔🪺 Check style"| W3["🐦🎨 Style Expert"]:::subagent
 
-    ORCH --> SYNTH[Synthesize]
-    SYNTH --> OUTPUT[Final Result]
+    W1 -->|"🐦📤 2 SQLi found"| SYNTH["🐔🌀 Synthesize"]:::main
+    W2 -->|"🐦📤 O(n²) loop"| SYNTH
+    W3 -->|"🐦📤 3 violations"| SYNTH
 
-    style ORCH fill:#ec4899,stroke:#db2777,color:#fff
-    style W1 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style W2 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style W3 fill:#6366f1,stroke:#4f46e5,color:#fff
+    SYNTH -->|"🐔📤"| OUTPUT["💁‍♀️📤 Final Report"]:::user
 ```
+
+> **Key insight**: Each worker has a **DIFFERENT expertise** and does a **DIFFERENT task**.
 
 ### Orchestrator Responsibilities
 
@@ -284,15 +327,16 @@ flowchart TB
 ### Worker Characteristics
 
 ```mermaid
+%%{init: {'theme': 'base'}}%%
 mindmap
-    root((Workers))
-        Specialized
+    root(("🐦⚡ Workers"))
+        🎯 Specialized
             Domain expert
             Single responsibility
-        Autonomous
+        ⚡ Autonomous
             Independent execution
             Own tool access
-        Isolated
+        🔒 Isolated
             No direct communication
             Report to orchestrator
 ```
@@ -336,35 +380,42 @@ Generate candidates, evaluate them, and iteratively improve until quality thresh
 ### Diagram
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
-    INPUT[Task] --> GEN[Generator]
-    GEN --> CAND[Candidate]
-    CAND --> EVAL{Evaluator}
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef data fill:#06b6d4,stroke:#0891b2,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
+    classDef success fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
+    classDef error fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#ffffff
 
-    EVAL -->|Pass| OUTPUT[Output]
-    EVAL -->|Fail| FEEDBACK[Feedback]
+    INPUT["🙋‍♀️📥 Task"]:::user --> GEN["🐔💭 Generate"]:::main
+    GEN --> CAND["🐔📤 Candidate"]:::data
+    CAND --> EVAL{"🐔👨‍🔧 Evaluate"}:::wizard
+
+    EVAL -->|"🐔✅ Pass"| OUTPUT["💁‍♀️📤 Output"]:::success
+    EVAL -->|"🐔❌ Fail"| FEEDBACK["🐔🔄 Feedback"]:::error
     FEEDBACK --> GEN
-
-    style GEN fill:#6366f1,stroke:#4f46e5,color:#fff
-    style EVAL fill:#f59e0b,stroke:#d97706,color:#fff
 ```
 
 ### Detailed Flow
 
 ```mermaid
+%%{init: {'theme': 'base'}}%%
 sequenceDiagram
-    participant G as Generator
-    participant E as Evaluator
-    participant O as Output
+    participant U as 🙋‍♀️ User
+    participant G as 🐔💭 Generator
+    participant E as 🐔👨‍🔧 Evaluator
 
-    loop Until quality threshold
-        G->>G: Generate candidate
-        G->>E: Submit for evaluation
-        E->>E: Score candidate
-        alt Score >= threshold
-            E->>O: Accept
-        else Score < threshold
-            E->>G: Feedback for improvement
+    U->>G: 🙋‍♀️📥 Request
+    loop 🔄 Until quality threshold
+        G->>G: 🐔💭 Generate candidate
+        G->>E: 🐔📤 Submit for evaluation
+        E->>E: 🐔👀 Score candidate
+        alt ✅ Score >= threshold
+            E->>U: 💁‍♀️📤 Accept
+        else ❌ Score < threshold
+            E->>G: 🐔🔄 Feedback for improvement
         end
     end
 ```
@@ -406,7 +457,7 @@ Evaluator: "Pass - all criteria met"
 
 ---
 
-## Pattern 6: 🐔 Autonomous Agents
+## Pattern 6: 🦅 Autonomous Agents
 
 ### Definition
 
@@ -415,33 +466,37 @@ Long-running agents that independently plan, execute, and adapt based on environ
 ### Diagram
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
-    GOAL[Goal] --> PLAN[Plan]
-    PLAN --> ACT[Act]
-    ACT --> ENV[Environment]
-    ENV --> OBSERVE[Observe]
-    OBSERVE --> REFLECT{Reflect}
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef data fill:#06b6d4,stroke:#0891b2,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
+    classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
 
-    REFLECT -->|Adjust plan| PLAN
-    REFLECT -->|Continue| ACT
-    REFLECT -->|Goal achieved| DONE[Done]
+    GOAL["🙋‍♀️📥 Goal"]:::user --> PLAN["🐔📋 Plan"]:::main
+    PLAN --> ACT["🐔⚡ Act"]:::state
+    ACT --> ENV["🌍 Environment"]:::data
+    ENV --> OBSERVE["🐔👀 Observe"]:::data
+    OBSERVE --> REFLECT{"🐔💭 Reflect"}:::wizard
 
-    style PLAN fill:#6366f1,stroke:#4f46e5,color:#fff
-    style ACT fill:#10b981,stroke:#059669,color:#fff
-    style REFLECT fill:#f59e0b,stroke:#d97706,color:#fff
+    REFLECT -->|"🐔🔄 Adjust"| PLAN
+    REFLECT -->|"🐔▶️ Continue"| ACT
+    REFLECT -->|"🐔✅ Done"| DONE["💁‍♀️📤 Result"]:::user
 ```
 
 ### Agent Loop
 
 ```mermaid
+%%{init: {'theme': 'base'}}%%
 stateDiagram-v2
-    [*] --> Planning: Receive goal
-    Planning --> Executing: Create plan
-    Executing --> Observing: Take action
-    Observing --> Reflecting: Get feedback
-    Reflecting --> Planning: Needs adjustment
-    Reflecting --> Executing: Continue
-    Reflecting --> [*]: Goal achieved
+    [*] --> Planning: 🙋‍♀️📥 Receive goal
+    Planning --> Executing: 🐔📋 Create plan
+    Executing --> Observing: 🐔⚡ Take action
+    Observing --> Reflecting: 🐔👀 Get feedback
+    Reflecting --> Planning: 🐔🔄 Adjust
+    Reflecting --> Executing: 🐔▶️ Continue
+    Reflecting --> [*]: 💁‍♀️📤 Goal achieved
 ```
 
 ### Characteristics
@@ -473,18 +528,24 @@ Agent:
 ### Risk Management
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart LR
-    subgraph Guardrails
-        LIMIT[Iteration Limit]
-        APPROVAL[Human Approval]
-        SCOPE[Action Scope]
-        ROLLBACK[Rollback Capability]
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef state fill:#10b981,stroke:#059669,stroke-width:2px,color:#ffffff
+    classDef error fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#ffffff
+
+    subgraph Guardrails["🛡️ Guardrails"]
+        LIMIT["⏱️ Iteration Limit"]:::error
+        APPROVAL["🙆‍♀️✅ Human Approval"]:::user
+        SCOPE["🔒 Action Scope"]:::error
+        ROLLBACK["↩️ Rollback Capability"]:::error
     end
 
-    AGENT[Autonomous Agent] --> Guardrails
-    Guardrails --> SAFE[Safe Execution]
+    AGENT["🐔 Main Agent (autonomous)"]:::main --> Guardrails
+    Guardrails --> SAFE["✅ Safe Execution"]:::state
 
-    style Guardrails fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style Guardrails fill:#fef2f2,stroke:#ef4444,stroke-width:2px
 ```
 
 ### When to Use
@@ -512,7 +573,7 @@ flowchart LR
 │ 🛤️ Parallelization        │ Medium      │ High        │ Optional     │ None      │
 │ 🎭 Orchestrator-Workers   │ High        │ High        │ Optional     │ As needed │
 │ 👨‍🔧 Evaluator-Optimizer    │ Medium      │ Optional    │ Optional     │ Loop      │
-│ 🐔 Autonomous Agent       │ Very High   │ Variable    │ Recommended  │ Adaptive  │
+│ 🦅 Autonomous Agent       │ Very High   │ Variable    │ Recommended  │ Adaptive  │
 └──────────────────────────┴─────────────┴─────────────┴──────────────┴───────────┘
 ```
 
@@ -523,15 +584,21 @@ flowchart LR
 These patterns are building blocks that combine:
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
 flowchart TB
-    subgraph Combined["Complex System"]
-        R["🚦 Routing"] --> OW["🎭 Orchestrator-Workers"]
-        OW --> P["🛤️ Parallelization"]
-        P --> EO["👨‍🔧 Evaluator-Optimizer"]
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+
+    subgraph Combined["🔗 Complex System"]
+        R["🐔🚦 Routing"]:::wizard --> OW["🐔🎭 Orchestrator"]:::main
+        OW -->|"🐔🪺"| P["🐦⚡ Parallel Workers"]:::parallel
+        P -->|"🐦📤"| EO["🐔👨‍🔧 Evaluator"]:::wizard
     end
 
-    INPUT[Input] --> R
-    EO --> OUTPUT[Output]
+    INPUT["🙋‍♀️📥 Input"]:::user --> R
+    EO -->|"🐔📤"| OUTPUT["💁‍♀️📤 Output"]:::user
 
     style Combined fill:#f8fafc,stroke:#e2e8f0,stroke-width:2px
 ```
@@ -542,6 +609,108 @@ flowchart TB
 2. **🎭 Orchestrator-Workers**: Assign to security, perf, style workers
 3. **🛤️ Parallelization**: Workers run concurrently
 4. **👨‍🔧 Evaluator-Optimizer**: Iterate on feedback if issues found
+
+---
+
+## Pattern Comparisons
+
+### 🚦 Routing vs 🛤️ Parallelization
+
+These two patterns are often confused but serve fundamentally different purposes:
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
+flowchart LR
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+    classDef idle fill:#94a3b8,stroke:#64748b,stroke-width:2px,color:#ffffff
+
+    subgraph ROUTING["🚦 Routing: Choose ONE"]
+        R_IN["🙋‍♀️📥"]:::user --> R_DECIDE{"🐔🚦"}:::main
+        R_DECIDE -.-> R_A["🐦💤 A"]:::idle
+        R_DECIDE --> R_B["🐦⚡ B"]:::subagent
+        R_DECIDE -.-> R_C["🐦💤 C"]:::idle
+        R_B --> R_OUT["💁‍♀️📤"]:::user
+    end
+
+    subgraph PARALLEL["🛤️ Parallelization: Run ALL"]
+        P_IN["🙋‍♀️📥"]:::user --> P_SPLIT["🐔🔀"]:::main
+        P_SPLIT --> P_A["🐦⚡ A"]:::parallel
+        P_SPLIT --> P_B["🐦⚡ B"]:::parallel
+        P_SPLIT --> P_C["🐦⚡ C"]:::parallel
+        P_A --> P_MERGE["🐔🌀"]:::main
+        P_B --> P_MERGE
+        P_C --> P_MERGE
+        P_MERGE --> P_OUT["💁‍♀️📤"]:::user
+    end
+
+    style ROUTING fill:#fef2f2,stroke:#ef4444,stroke-width:2px
+    style PARALLEL fill:#eff6ff,stroke:#3b82f6,stroke-width:2px
+```
+
+| Aspect | 🚦 Routing | 🛤️ Parallelization |
+|--------|-----------|-------------------|
+| **Action** | Choose **ONE** branch | Execute **ALL** branches |
+| **Logic** | `if/else`, `switch/case` | `fork/join`, `Promise.all` |
+| **Question** | "Where should I send this?" | "How can I do all this at once?" |
+| **Result** | Single output from chosen handler | Multiple outputs merged |
+
+**Analogy**:
+- 🚦 **Routing** = Train switch → One train takes ONE track
+- 🛤️ **Parallelization** = Multiple trains → All trains run simultaneously
+
+---
+
+### 🛤️ Parallelization vs 🎭 Orchestrator-Workers
+
+These two patterns both use multiple workers but for different purposes:
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
+flowchart LR
+    classDef user fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#ffffff
+    classDef main fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+    classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+
+    subgraph PARALLEL["🛤️ Parallelization: SAME Task"]
+        P_IN["🙋‍♀️📥"]:::user --> P_SPLIT["🐔🔀"]:::main
+        P_SPLIT --> P_A["🐦⚡ Chunk 1"]:::parallel
+        P_SPLIT --> P_B["🐦⚡ Chunk 2"]:::parallel
+        P_SPLIT --> P_C["🐦⚡ Chunk 3"]:::parallel
+        P_A --> P_MERGE["🐔🌀"]:::main
+        P_B --> P_MERGE
+        P_C --> P_MERGE
+        P_MERGE --> P_OUT["💁‍♀️📤"]:::user
+    end
+
+    subgraph ORCH["🎭 Orchestrator: DIFFERENT Tasks"]
+        O_IN["🙋‍♀️📥"]:::user --> O_MAIN["🐔🎭"]:::main
+        O_MAIN --> O_A["🐦🔒 Security"]:::subagent
+        O_MAIN --> O_B["🐦⚡ Perf"]:::subagent
+        O_MAIN --> O_C["🐦🎨 Style"]:::subagent
+        O_A --> O_SYNTH["🐔🌀"]:::main
+        O_B --> O_SYNTH
+        O_C --> O_SYNTH
+        O_SYNTH --> O_OUT["💁‍♀️📤"]:::user
+    end
+
+    style PARALLEL fill:#eff6ff,stroke:#3b82f6,stroke-width:2px
+    style ORCH fill:#fdf4ff,stroke:#ec4899,stroke-width:2px
+```
+
+| Aspect | 🛤️ Parallelization | 🎭 Orchestrator-Workers |
+|--------|-------------------|------------------------|
+| **Workers** | **Interchangeable** (same skill) | **Specialized** (different skills) |
+| **Task type** | **Identical** task on different data | **Different** tasks on same data |
+| **Decision** | **Static** (predefined split) | **Dynamic** (orchestrator decides) |
+| **Example** | 3 cooks make same recipe | Chef + Pastry + Sommelier |
+
+**Analogy**:
+- 🛤️ **Parallelization** = Assembly line → Same job, more workers = faster
+- 🎭 **Orchestrator-Workers** = Hospital team → Different experts collaborate
 
 ---
 
