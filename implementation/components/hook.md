@@ -66,18 +66,72 @@ sequenceDiagram
 
 ## Hook Events
 
-| Event | Trigger | Use Case |
-|-------|---------|----------|
-| `PreToolUse` | Before tool execution | Validation, blocking |
-| `PostToolUse` | After tool completion | Cleanup, formatting |
-| `PermissionRequest` | Permission dialogs | Auto-allow/deny |
-| `UserPromptSubmit` | Before processing input | Pre-processing |
-| `SessionStart` | Session starts/resumes | Environment setup |
-| `SessionEnd` | Session ends | Cleanup |
-| `Stop` | Claude finishes | Post-response actions |
-| `SubagentStop` | Subagent completes | Subagent cleanup |
-| `PreCompact` | Before compact | Lifecycle management |
-| `Notification` | Notifications sent | Custom notifications |
+| Event | Trigger | Use Case | Example |
+|-------|---------|----------|---------|
+| `PreToolUse` | Before tool execution | Validation, security gates | Block writes to protected files |
+| `PostToolUse` | After tool completion | Cleanup, formatting, logging | Auto-lint after file write |
+| `PermissionRequest` | Permission dialogs | Auto-allow trusted tools | Skip prompts for Read operations |
+| `UserPromptSubmit` | Before processing input | Pre-processing, context injection | Add project context to prompts |
+| `SessionStart` | Session starts/resumes | Environment setup, status check | Run git status, check deps |
+| `SessionEnd` | Session ends | Cleanup, reporting | Save session summary |
+| `Stop` | Claude finishes response | Post-response actions | Notify completion |
+| `SubagentStop` | Subagent completes | Subagent result handling | Log subagent outputs |
+| `PreCompact` | Before context compaction | State preservation | Save important context |
+| `Notification` | Notifications sent | Custom notification handling | Send to Slack/Discord |
+
+---
+
+### Event Examples
+
+**PreToolUse: Block Protected Files**
+```json
+{
+  "PreToolUse": [{
+    "matcher": "Write|Edit",
+    "hooks": [{
+      "type": "command",
+      "command": "if echo \"$TOOL_INPUT\" | grep -q '.env\\|secrets\\|credentials'; then echo 'BLOCK: Protected file'; exit 2; fi"
+    }]
+  }]
+}
+```
+
+**PostToolUse: Auto-format on Save**
+```json
+{
+  "PostToolUse": [{
+    "matcher": "Write",
+    "hooks": [{
+      "type": "command",
+      "command": "prettier --write \"$FILE_PATH\" 2>/dev/null || true"
+    }]
+  }]
+}
+```
+
+**SessionStart: Project Context**
+```json
+{
+  "SessionStart": [{
+    "hooks": [{
+      "type": "command",
+      "command": "echo '=== Project Status ===' && git status -sb && echo '=== Recent Changes ===' && git log --oneline -3"
+    }]
+  }]
+}
+```
+
+**UserPromptSubmit: Add Context**
+```json
+{
+  "UserPromptSubmit": [{
+    "hooks": [{
+      "type": "prompt",
+      "prompt": "Before processing, check if this request relates to our authentication system. If so, remind about our security requirements: all auth changes require review, no plaintext passwords, use bcrypt for hashing."
+    }]
+  }]
+}
+```
 
 ---
 
@@ -104,6 +158,44 @@ Executes a shell command directly.
 ```
 
 Uses LLM (via Haiku) for context-aware evaluation.
+
+### Prompt Hook: Security Review Before Write
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Write|Edit",
+      "hooks": [{
+        "type": "prompt",
+        "prompt": "Review this code change for security vulnerabilities. Check for: 1) SQL injection 2) XSS 3) Hardcoded secrets 4) Unsafe file operations. If any issues found, respond with 'BLOCK: <reason>'. Otherwise respond 'ALLOW'."
+      }]
+    }]
+  }
+}
+```
+
+**How it works:**
+- Triggers before any Write or Edit operation
+- Haiku evaluates the code change against security criteria
+- Returns BLOCK or ALLOW decision
+- Provides context-aware security gate without hardcoded rules
+
+### Prompt Hook: Commit Message Quality Check
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "prompt",
+        "prompt": "If this is a git commit command, verify the commit message follows Conventional Commits format (type(scope): description). If invalid, suggest a better message. Otherwise, allow the command."
+      }]
+    }]
+  }
+}
+```
 
 ---
 

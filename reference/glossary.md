@@ -64,9 +64,11 @@ AskUserQuestion(questions=[{
 : Anthropic's term for the **Augmented LLM** — the foundational unit of all agentic systems. An LLM enhanced with retrieval, tools, and memory.
 : ⚠️ **Not to be confused with:** Claude Code Components (Subagent, Slash Command, Skill, Hook) which are abstractions built ON TOP of the building block.
 : *See also:* Augmented LLM
+: *See also:* [Building Block Pattern](../concepts/workflows/00-building-block.md)
 
 **Built-in Subagents**
-: Pre-configured subagents available out of the box in Claude Code. See [Built-in Subagents](built-in-subagents.md).
+: Pre-configured subagents available out of the box in Claude Code.
+: *See:* [Built-in Subagents Reference](built-in-subagents.md)
 
 ---
 
@@ -91,6 +93,7 @@ AskUserQuestion(questions=[{
 
 **Delegation Layer**
 : Layer 3 in the architecture. Contains Slash Commands and Skills that define workflows and capabilities.
+: *See:* [Delegation Layer](../implementation/architecture/03-delegation-layer.md)
 
 **🏎️ Direct Execution (Baseline)**
 : The foundation - single augmented LLM call with no orchestration. Pattern #0 in our taxonomy. Fastest execution path.
@@ -101,9 +104,11 @@ AskUserQuestion(questions=[{
 
 **🩻 Evaluator-Optimizer**
 : Anthropic pattern for iterative improvement through generate-evaluate-feedback loops.
+: *See:* [Evaluator-Optimizer Pattern](../concepts/workflows/06-evaluator-optimizer.md)
 
 **Execution Layer**
 : Layer 4 in the architecture. Where Subagents and Tools perform actual work.
+: *See:* [Execution Layer](../implementation/architecture/04-execution-layer.md)
 
 ---
 
@@ -122,6 +127,8 @@ AskUserQuestion(questions=[{
   }
 }
 ```
+
+: *See:* [Hook Component](../implementation/components/hook.md)
 
 **Human-in-the-Loop**
 : Design pattern where human approval/input is required at key points. Implemented via AskUserQuestion in Wizard Workflows.
@@ -148,12 +155,14 @@ AskUserQuestion(questions=[{
 
 **🧬 Master-Clone**
 : Claude Code pattern for spawning multiple isolated subagents handling independent domains. Variant of 🛤️ Parallelization.
+: *See:* [Master-Clone in Parallelization](../concepts/workflows/04-parallelization.md#variant--master-clone)
 
 **Model-invoked**
 : Capability (like Skills) that Claude autonomously decides when to use based on context. Contrast with User-invoked (Slash Commands).
 
 **🖥️ Multi-Window Context**
 : Claude Code pattern for checkpointing and resuming long workflows. Implementation of 🐉 Autonomous Agents.
+: *See:* [Multi-Window Context](../concepts/agents/multi-window-context.md)
 
 ---
 
@@ -220,6 +229,7 @@ AskUserQuestion(questions=[{
 
 **🚦 Routing**
 : Anthropic pattern for directing inputs to specialized handlers based on classification.
+: *See:* [Routing Pattern](../concepts/workflows/03-routing.md)
 
 **Resumable Subagents**
 : Subagents that can be resumed via `resume` parameter to continue previous conversations using their `agentId`. Agent transcripts are stored in project directory as `agent-{agentId}.jsonl`.
@@ -255,6 +265,8 @@ Task(
 
 > Skill name from directory name. Frontmatter: `name` (optional, max 64 chars), `description` (required, max 1024 chars), `allowed-tools` (optional, restricts tool access).
 
+: *See:* [Skill Component](../implementation/components/skill.md)
+
 **Slash Command**
 : User-invokable workflow starting with `/`. Located in `.claude/commands/*.md`.
 
@@ -284,6 +296,8 @@ tools: Read, Grep, Glob
 ```
 
 > `tools` is a comma-separated string. `description` is required.
+
+: *See:* [Subagent Component](../implementation/components/subagent.md)
 
 **🦑 Orchestrator-Workers (Claude Code)**
 : Anthropic pattern where a central orchestrator delegates to specialized workers. In Claude Code, the 🐔 Main Agent spawns 🐦 Subagents via the Task tool.
@@ -333,6 +347,7 @@ Task(
 
 **🧙 Wizard Workflows**
 : Claude Code pattern for multi-step processes with explicit user confirmation at each phase. Implementation of Human-in-the-Loop.
+: *See:* [Wizard Workflow in Prompt Chaining](../concepts/workflows/02-prompt-chaining.md#variant--wizard-workflows)
 
 **Worker**
 : Specialized executor in Orchestrator-Workers pattern. In Claude Code, these are Subagents.

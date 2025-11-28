@@ -183,7 +183,9 @@ flowchart LR
     AGENT["🐔 Main Agent"]:::main --> Guardrails
     Guardrails --> SAFE["✅ Safe Execution"]:::state
 
-    style Guardrails fill:#fef2f2,stroke:#ef4444,stroke-width:2px
+    classDef guardrailBox fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+
+    Guardrails:::guardrailBox
 ```
 
 ---

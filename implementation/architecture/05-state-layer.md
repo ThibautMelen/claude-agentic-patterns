@@ -52,7 +52,9 @@ flowchart TB
     MA -->|Accesses| MEM
     MA -->|Resumes from| CHECK
 
-    style StateLayer fill:#ecfdf5,stroke:#10b981,stroke-width:2px
+    classDef stateBox fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#065f46
+
+    StateLayer:::stateBox
 ```
 
 ---

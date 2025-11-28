@@ -46,7 +46,9 @@ flowchart LR
     SC --> MA
     FR --> MA
 
-    style UserLayer fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+    classDef userBox fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#3730a3
+
+    UserLayer:::userBox
 ```
 
 ---

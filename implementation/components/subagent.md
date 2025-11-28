@@ -73,13 +73,47 @@ You are a code review specialist. Your task is to...
 
 ---
 
-## Usage Example
+## Usage Examples
+
+### Basic Invocation
 
 ```python
 # 🐔 Main Agent 🪺 spawns 🐦 subagent via Task tool
 Task(
     subagent_type="code-reviewer",
-    prompt="Review the authentication module for security issues"
+    prompt="Review the authentication module in src/auth/ for security vulnerabilities. Focus on: 1) Input validation 2) Session management 3) Password handling",
+    description="Security review of auth module"
+)
+```
+
+### With Model Override
+
+```python
+Task(
+    subagent_type="code-reviewer",
+    prompt="Quick syntax check of utils.py",
+    model="haiku",  # Use faster model for simple tasks
+    description="Quick syntax review"
+)
+```
+
+### Resumable Invocation
+
+```python
+# First call - returns agentId
+result = Task(
+    subagent_type="research-analyst",
+    prompt="Research the current state of WebSocket libraries in Python",
+    description="WebSocket library research"
+)
+# result.agentId = "agent-abc123"
+
+# Later - resume with context
+Task(
+    subagent_type="research-analyst",
+    prompt="Now compare the top 3 libraries you found and recommend one",
+    resume="agent-abc123",  # Continue previous conversation
+    description="WebSocket library comparison"
 )
 ```
 
@@ -119,18 +153,113 @@ sequenceDiagram
 
 ## Resumable Subagents
 
-```python
-# Initial invocation returns agentId
-Task(subagent_type="code-analyzer", prompt="Review auth module")
-# Returns: agentId = "abc123"
+Subagents can be resumed to continue previous conversations, maintaining full context.
 
-# Resume with previous context
-Task(
-    subagent_type="code-analyzer",
-    prompt="Now analyze authorization logic",
-    resume="abc123"
+### How It Works
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
+sequenceDiagram
+    participant MA as 🐔 Main Agent
+    participant SA as 🐦 Subagent
+    participant FS as 💾 File System
+
+    MA->>SA: Task(prompt="Research X")
+    SA->>SA: Work on task...
+    SA-->>MA: Return result + agentId
+    SA->>FS: Save transcript (agent-{id}.jsonl)
+
+    Note over MA,FS: Later...
+
+    MA->>SA: Task(resume="abc123", prompt="Continue with Y")
+    FS-->>SA: Load previous transcript
+    SA->>SA: Resume with full context
+    SA-->>MA: Return continued result
+```
+
+### End-to-End Example: Research Project
+
+**Session 1: Initial Research**
+
+```python
+# Start a research task
+result1 = Task(
+    subagent_type="research-analyst",
+    prompt="""Research the current state of Python async web frameworks.
+
+    Investigate:
+    1. FastAPI - features, performance, ecosystem
+    2. Starlette - relationship to FastAPI
+    3. AIOHTTP - comparison points
+    4. Litestar - newer alternative
+
+    Create a comparison matrix and initial recommendation.""",
+    description="Async framework research"
+)
+
+# Result includes agentId for later resumption
+# result1.agentId = "agent-research-abc123"
+# Transcript saved to: agent-research-abc123.jsonl
+```
+
+**Session 2: Continue with Deeper Analysis**
+
+```python
+# Resume the same subagent with its full context
+result2 = Task(
+    subagent_type="research-analyst",
+    prompt="""Based on your previous research, now:
+
+    1. Deep dive into FastAPI's dependency injection system
+    2. Compare its approach to Flask/Django
+    3. Provide code examples showing the pattern
+
+    Build on what you learned in the previous analysis.""",
+    resume="agent-research-abc123",  # Continue previous conversation
+    description="Deep dive into FastAPI DI"
+)
+
+# The subagent remembers all previous research context
+```
+
+**Session 3: Final Recommendation**
+
+```python
+# Continue to final recommendation
+result3 = Task(
+    subagent_type="research-analyst",
+    prompt="""Now provide final recommendation:
+
+    1. Which framework for our e-commerce API?
+    2. Migration path from current Flask app
+    3. Team training requirements
+    4. Timeline estimate
+
+    Use all your research to justify the recommendation.""",
+    resume="agent-research-abc123",
+    description="Final framework recommendation"
 )
 ```
+
+### Transcript Storage
+
+```
+project/
+├── agent-research-abc123.jsonl    # Research analyst transcript
+├── agent-reviewer-def456.jsonl    # Code reviewer transcript
+└── .claude/
+    └── agents/
+        └── research-analyst.md    # Agent definition
+```
+
+### Best Practices
+
+| Practice | Reason |
+|----------|--------|
+| **Use descriptive prompts** | Context carries forward, be specific |
+| **Resume same subagent type** | Different types have different capabilities |
+| **Check agentId exists** | Transcript might be cleaned up |
+| **Build on previous work** | Reference "your previous analysis" |
 
 ---
 

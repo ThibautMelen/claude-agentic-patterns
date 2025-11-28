@@ -114,6 +114,49 @@ flowchart LR
 - Code vulnerability review with multiple prompts
 - Content moderation with different vote thresholds
 
+### How Voting Selection Works
+
+The 🐔 Main Agent evaluates all outputs using one of these strategies:
+
+| Strategy | How It Works | Best For |
+|----------|--------------|----------|
+| **LLM Judge** | Main Agent compares outputs and selects best | Creative content, subjective quality |
+| **Scoring Rubric** | Each output scored against criteria, highest wins | Code review, compliance checks |
+| **Consensus** | Majority agreement required | Critical decisions, validation |
+| **Weighted Vote** | Outputs weighted by model capability | Mixed model ensemble |
+
+**Example: LLM Judge Selection**
+
+```
+Input: "Write a headline for our product launch"
+
+🐦 Version A: "Introducing the Future of AI"
+🐦 Version B: "Meet Your New AI Assistant"
+🐦 Version C: "AI That Actually Works"
+
+🐔 Judge Prompt: "Compare these 3 headlines for:
+- Clarity (0-10)
+- Engagement (0-10)
+- Brand alignment (0-10)
+Select the best and explain why."
+
+🐔 Decision: "Version B wins (8+9+8=25 vs 7+8+7=22 vs 9+7+6=22)"
+```
+
+**Example: Scoring Rubric Selection**
+
+```python
+# Each subagent returns structured output
+results = [
+    {"content": "...", "confidence": 0.92},
+    {"content": "...", "confidence": 0.87},
+    {"content": "...", "confidence": 0.95}
+]
+
+# Main Agent selects highest confidence
+winner = max(results, key=lambda x: x["confidence"])
+```
+
 ---
 
 ## Summary
@@ -164,7 +207,9 @@ flowchart TB
 
     RESULTS --> MA
 
-    style TOOLS fill:#dbeafe,stroke:#3b82f6,stroke-width:2px
+    classDef toolbox fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+
+    TOOLS:::toolbox
 ```
 
 ---
@@ -172,6 +217,17 @@ flowchart TB
 ## Variant: 🧬 Master-Clone
 
 Spawn multiple isolated 🐦 instances handling independent domains with no shared state.
+
+### Key Characteristics
+
+| Property | Value |
+|----------|-------|
+| **Isolation** | Complete - each clone has own context |
+| **State Sharing** | None - clones cannot communicate |
+| **Best For** | Independent domains, parallel generation |
+| **Merge Strategy** | Combine all outputs (no conflict resolution needed) |
+
+### Diagram
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'lineColor': '#64748b'}}}%%
@@ -196,6 +252,76 @@ flowchart TB
 
     MERGE --> MA
 ```
+
+### Why Isolation Matters
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  🧬 MASTER-CLONE ISOLATION PRINCIPLE                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  Each clone operates in COMPLETE ISOLATION:                                 │
+│                                                                             │
+│  ✅ Own context window (no pollution from other clones)                     │
+│  ✅ Own tool results (reads/writes don't interfere)                         │
+│  ✅ Own decision making (no cross-influence)                                │
+│  ✅ Independent failures (one clone failing doesn't affect others)          │
+│                                                                             │
+│  This enables:                                                              │
+│  - Parallel processing of UNRELATED domains                                 │
+│  - No need for conflict resolution                                          │
+│  - Simple merge (concatenate all outputs)                                   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Implementation Example
+
+```python
+# 🐔 Main Agent spawns isolated clones for locale generation
+
+# Define independent domains (no overlap)
+locales = ["fr-FR", "es-ES", "de-DE", "ja-JP"]
+base_content = read_file("locales/en-US.json")
+
+# Spawn clones in parallel - each gets ISOLATED context
+for locale in locales:
+    Task(
+        subagent_type="locale-generator",
+        prompt=f"""Generate {locale} translation for this content:
+
+{base_content}
+
+Requirements:
+- Maintain JSON structure exactly
+- Translate all string values
+- Keep keys in English
+- Preserve placeholders like {{name}}
+- Output ONLY the JSON, no explanations
+
+Save to: locales/{locale}.json""",
+        description=f"Generate {locale} locale"
+    )
+
+# Results: 4 independent locale files, no conflicts
+# Each clone saw only its locale, worked independently
+```
+
+### When to Use Master-Clone
+
+| Use Case | Why Master-Clone? |
+|----------|-------------------|
+| **Multi-locale generation** | Each locale is independent domain |
+| **Multi-platform builds** | iOS, Android, Web don't share state |
+| **Parallel documentation** | Each doc section is self-contained |
+| **A/B test generation** | Variants shouldn't influence each other |
+| **Multi-tenant operations** | Tenant data must be isolated |
+
+### When NOT to Use
+
+- Domains have dependencies (use Orchestrator-Workers instead)
+- Results need conflict resolution (use Voting instead)
+- Shared state is required (use sequential processing)
 
 ---
 

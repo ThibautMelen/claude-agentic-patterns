@@ -36,8 +36,11 @@ flowchart TB
     S1CP -.->|💾 State saved| STATE[("💾 State Store")]:::state
     STATE -.->|💾 State loaded| RESUME
 
-    style Session1 fill:#fef2f2,stroke:#ef4444,stroke-width:2px
-    style Session2 fill:#ecfdf5,stroke:#10b981,stroke-width:2px
+    classDef session1Box fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    classDef session2Box fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#065f46
+
+    Session1:::session1Box
+    Session2:::session2Box
 ```
 
 ---
@@ -100,6 +103,8 @@ flowchart LR
 
 ## Checkpoint Data Structure
 
+### Basic Structure
+
 ```json
 {
   "workflow_id": "wf_2025_001",
@@ -113,6 +118,99 @@ flowchart LR
   "resume_point": "checkpoint_2",
   "timestamp": "2025-11-28T10:00:00Z"
 }
+```
+
+### Full Implementation Example
+
+```json
+{
+  "workflow_id": "locale-gen-2025-001",
+  "workflow_type": "multi-locale-generation",
+  "version": "1.0",
+
+  "progress": {
+    "current_phase": 2,
+    "total_phases": 4,
+    "phase_name": "locale_generation",
+    "percent_complete": 45
+  },
+
+  "completed_tasks": [
+    {
+      "id": "task_001",
+      "name": "generate_en_US",
+      "status": "completed",
+      "output_files": ["locales/en-US.json"],
+      "completed_at": "2025-11-28T09:30:00Z"
+    },
+    {
+      "id": "task_002",
+      "name": "generate_fr_FR",
+      "status": "completed",
+      "output_files": ["locales/fr-FR.json"],
+      "completed_at": "2025-11-28T09:45:00Z"
+    }
+  ],
+
+  "pending_tasks": [
+    {
+      "id": "task_003",
+      "name": "generate_de_DE",
+      "status": "pending",
+      "dependencies": ["task_001"]
+    },
+    {
+      "id": "task_004",
+      "name": "generate_es_ES",
+      "status": "pending",
+      "dependencies": ["task_001"]
+    }
+  ],
+
+  "state": {
+    "primary_locale": "en-US",
+    "target_locales": ["fr-FR", "de-DE", "es-ES", "ja-JP"],
+    "similarity_threshold": 0.7,
+    "context_summary": "Generating locale files for e-commerce app. Primary locale (en-US) completed with 245 strings. French translation done. German and Spanish pending."
+  },
+
+  "subagent_states": {
+    "agent-abc123": {
+      "type": "locale-generator",
+      "last_task": "fr-FR",
+      "can_resume": true
+    }
+  },
+
+  "resume_instructions": "Load checkpoint, spawn locale-generator for de-DE and es-ES in parallel, then proceed to validation phase.",
+
+  "metadata": {
+    "created_at": "2025-11-28T09:00:00Z",
+    "updated_at": "2025-11-28T09:50:00Z",
+    "checkpoint_number": 3,
+    "session_id": "session-xyz789"
+  }
+}
+```
+
+### Loading a Checkpoint
+
+```python
+# At session start, check for existing checkpoint
+checkpoint_file = ".claude/checkpoints/locale-gen-2025-001.json"
+
+if os.path.exists(checkpoint_file):
+    checkpoint = load_json(checkpoint_file)
+
+    # Resume from saved state
+    print(f"Resuming workflow: {checkpoint['workflow_id']}")
+    print(f"Progress: {checkpoint['progress']['percent_complete']}%")
+    print(f"Next: {checkpoint['resume_instructions']}")
+
+    # Continue pending tasks
+    for task in checkpoint['pending_tasks']:
+        if task['status'] == 'pending':
+            execute_task(task)
 ```
 
 ---

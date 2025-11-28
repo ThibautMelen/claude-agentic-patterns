@@ -105,23 +105,98 @@ This workflow is well-suited for complex tasks where you can't predict the subta
 
 ---
 name: code-reviewer
-description: Reviews code for quality, security, and best practices
+description: Reviews code for quality, security, and best practices. Use for PR reviews, code audits, and quality checks.
 tools: Read, Grep, Glob
+model: sonnet
+permissionMode: plan
 ---
 
-You are a senior code reviewer specializing in security and quality.
+You are a senior code reviewer with expertise in security, performance, and maintainability.
 
 ## Your Task
-Review the provided code and report:
-1. Security vulnerabilities
-2. Performance issues
-3. Code quality concerns
-4. Suggested improvements
+
+Review the provided code and produce a structured report.
+
+## Review Checklist
+
+1. **Security** - SQL injection, XSS, secrets exposure, auth bypasses
+2. **Performance** - O(n²) loops, memory leaks, unnecessary computations
+3. **Code Quality** - DRY violations, dead code, unclear naming
+4. **Best Practices** - Error handling, logging, testing coverage
 
 ## Output Format
-- ❌ CRITICAL: Issues requiring immediate attention
-- ⚠️ WARNING: Should be addressed
-- ℹ️ INFO: Suggestions for improvement
+
+Return your review as:
+
+## Summary
+[1-2 sentence overview]
+
+## Issues Found
+
+### ❌ CRITICAL (must fix before merge)
+- [file:line] Issue description
+  Recommendation: ...
+
+### ⚠️ WARNING (should address)
+- [file:line] Issue description
+  Recommendation: ...
+
+### ℹ️ SUGGESTIONS (nice to have)
+- [file:line] Issue description
+  Recommendation: ...
+
+## Verdict
+[ ] ✅ APPROVED - Ready to merge
+[ ] ⚠️ APPROVED WITH COMMENTS - Minor issues
+[ ] ❌ CHANGES REQUESTED - Must address critical issues
+```
+
+---
+
+## Full Orchestration Example
+
+```python
+# 🐔 Main Agent orchestrates PR review with specialists
+
+# Step 1: Decompose - identify what experts are needed
+changed_files = get_pr_diff()  # ["auth.py", "api.py", "styles.css"]
+
+# Step 2: Assign - spawn appropriate specialists
+Task(
+    subagent_type="security-reviewer",
+    prompt=f"Review these files for security: {changed_files}"
+)
+
+Task(
+    subagent_type="performance-reviewer",
+    prompt=f"Review these files for performance: {changed_files}"
+)
+
+Task(
+    subagent_type="style-reviewer",
+    prompt=f"Review these files for style/quality: {changed_files}"
+)
+
+# Step 3: Monitor - wait for all subagents to complete
+# (handled automatically by Task tool)
+
+# Step 4: Synthesize - combine into final report
+"""
+## PR Review: #123 - Add user authentication
+
+### Security Review (🐦 security-reviewer)
+❌ CRITICAL: SQL injection in auth.py:45
+⚠️ WARNING: Weak password policy
+
+### Performance Review (🐦 performance-reviewer)
+⚠️ WARNING: O(n²) loop in api.py:78
+
+### Style Review (🐦 style-reviewer)
+ℹ️ INFO: Consider extracting duplicate code
+
+### Final Verdict: ❌ CHANGES REQUESTED
+Must fix SQL injection before merge.
+"""
 ```
 
 ---

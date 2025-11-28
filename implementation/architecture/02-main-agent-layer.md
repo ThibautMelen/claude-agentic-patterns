@@ -63,7 +63,9 @@ flowchart TB
     DELEGATE --> EXEC["⚡ Execution Layer"]:::tool
     EXEC --> SYNTH
 
-    style MainAgentLayer fill:#f3e8ff,stroke:#8b5cf6,stroke-width:2px
+    classDef mainBox fill:#f3e8ff,stroke:#8b5cf6,stroke-width:2px,color:#5b21b6
+
+    MainAgentLayer:::mainBox
 ```
 
 ---

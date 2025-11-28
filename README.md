@@ -211,10 +211,15 @@ flowchart LR
     I -->|Yes| PAR[🚂 Parallel]
     I -->|No| SUB[🦑 Subagent]
 
-    style DIRECT fill:#64748b,color:#fff
-    style WIZ fill:#14b8a6,color:#fff
-    style PAR fill:#3b82f6,color:#fff
-    style SUB fill:#ec4899,color:#fff
+    classDef baseline fill:#64748b,stroke:#475569,stroke-width:2px,color:#ffffff
+    classDef wizard fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#ffffff
+    classDef parallel fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+    classDef subagent fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#ffffff
+
+    DIRECT:::baseline
+    WIZ:::wizard
+    PAR:::parallel
+    SUB:::subagent
 ```
 
 ```

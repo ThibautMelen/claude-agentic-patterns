@@ -87,9 +87,13 @@ flowchart TB
     MA -->|"🪺 Task"| SA
     SA --> TOOLS
 
-    style Input fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
-    style Orchestration fill:#f3e8ff,stroke:#8b5cf6,stroke-width:2px
-    style Execution fill:#fce7f3,stroke:#ec4899,stroke-width:2px
+    classDef inputBox fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#3730a3
+    classDef orchestrationBox fill:#f3e8ff,stroke:#8b5cf6,stroke-width:2px,color:#5b21b6
+    classDef executionBox fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#9d174d
+
+    Input:::inputBox
+    Orchestration:::orchestrationBox
+    Execution:::executionBox
 ```
 
 ---
