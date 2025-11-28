@@ -84,12 +84,14 @@ mindmap
 
 | I want to... | Read this |
 |--------------|-----------|
-| **Learn the basics** | [01-OFFICIAL-TERMINOLOGY.md](01-OFFICIAL-TERMINOLOGY.md) |
-| **Understand architecture** | [02-LAYER-ARCHITECTURE.md](02-LAYER-ARCHITECTURE.md) |
-| **See real examples** | [05-USE-CASES.md](05-USE-CASES.md) |
-| **Choose a pattern** | [06-SELECTION-GUIDE.md](06-SELECTION-GUIDE.md) |
-| **Implement workflows** | [03-WORKFLOWS.md](03-WORKFLOWS.md) |
-| **Implement agents** | [04-AGENTS.md](04-AGENTS.md) |
+| **Learn the basics** | [Agentic Systems Overview](concepts/README.md) |
+| **Understand architecture** | [5-Layer Architecture](implementation/architecture/README.md) |
+| **See real examples** | [Use Cases](guides/use-cases/README.md) |
+| **Choose a pattern** | [Selection Guide](guides/README.md) |
+| **Implement workflows** | [Workflows](concepts/workflows/README.md) |
+| **Implement agents** | [Agents](concepts/agents/README.md) |
+| **Learn components** | [Components](implementation/components/README.md) |
+| **Look up terms** | [Glossary](reference/glossary.md) |
 
 ---
 
@@ -97,6 +99,8 @@ mindmap
 
 > **Agentic Systems** = Umbrella term for any system using LLMs with tools and control flow.
 > Encompasses **Baseline** (simple), **Workflows** (predefined), and **Agents** (dynamic).
+>
+> Based on [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) (Anthropic, Dec 2024)
 
 > **Anthropic Progression:** 🧱 Building Block → Workflows → Agents
 > First the Augmented LLM block, then workflows composed of these blocks, then agents that reuse blocks in loops with real-world feedback.
@@ -123,14 +127,18 @@ mindmap
 |---|-------|-------------|:----------:|
 | 6 | **🐉 Autonomous Agents** | Self-directed with minimal human guidance | Very High |
 
-### Mechanisms (implementation layer)
+### Mechanisms (Claude Code specific)
+
+> ⚠️ These are Claude Code implementation patterns, not official Anthropic terminology.
 
 | Mechanism | Description |
 |-----------|-------------|
 | **📚 Progressive Skills** | On-demand loading of modular capabilities (implements 🚦 Routing) |
 | **🎛️ Programmatic Orchestration** | External code controls agent invocation (implements ⛓️ Chaining) |
 
-### Workflow Variants
+### Workflow Variants (Claude Code specific)
+
+> ⚠️ These are patterns we've identified in Claude Code usage. They build on Anthropic's core patterns but are not official Anthropic terminology.
 
 | Variant | Parent | Description |
 |---------|--------|-------------|
@@ -166,16 +174,20 @@ mindmap
 
 ## Documentation Structure
 
-| File | Content |
-|------|---------|
-| [00-OVERVIEW.md](00-OVERVIEW.md) | Entry point, quick reference, emoji guide |
-| [01-OFFICIAL-TERMINOLOGY.md](01-OFFICIAL-TERMINOLOGY.md) | Components, patterns, visual standards (unified reference) |
-| [02-LAYER-ARCHITECTURE.md](02-LAYER-ARCHITECTURE.md) | 5-Layer system architecture |
-| [03-WORKFLOWS.md](03-WORKFLOWS.md) | Baseline + 5 Workflows + variants + mechanisms |
-| [04-AGENTS.md](04-AGENTS.md) | Autonomous Agents + Multi-Window Context |
-| [05-USE-CASES.md](05-USE-CASES.md) | Real-world validated examples |
-| [06-SELECTION-GUIDE.md](06-SELECTION-GUIDE.md) | Decision trees for choosing patterns |
-| [07-MAPPING-GLOSSARY.md](07-MAPPING-GLOSSARY.md) | Cross-reference & definitions |
+| Section | Content |
+|---------|---------|
+| **[concepts/](concepts/README.md)** | Agentic Systems theory |
+| ↳ [workflows/](concepts/workflows/README.md) | 7 workflow files (Building Block + 6 patterns) |
+| ↳ [agents/](concepts/agents/README.md) | 2 agent files (Autonomous + Multi-Window) |
+| **[implementation/](implementation/README.md)** | How to build |
+| ↳ [components/](implementation/components/README.md) | 4 component files (Subagent, Command, Skill, Hook) |
+| ↳ [architecture/](implementation/architecture/README.md) | 5 layer files (User → State) |
+| **[guides/](guides/README.md)** | Pattern selection |
+| ↳ [use-cases/](guides/use-cases/README.md) | 6 validated use cases |
+| **[reference/](reference/README.md)** | Quick lookups |
+| ↳ [glossary.md](reference/glossary.md) | A-Z definitions |
+| ↳ [visual-standards.md](reference/visual-standards.md) | Colors, emojis, diagrams |
+| ↳ [built-in-subagents.md](reference/built-in-subagents.md) | General-purpose, Plan, Explore |
 
 ---
 
@@ -208,7 +220,7 @@ flowchart LR
 ```
 Simple Task (1 step)          → 🏎️ Direct execution
 Medium Task (2-4 steps)       → 📚 Progressive Skills
-Complex Task (5+ steps)       → 🦑 Subagent Orchestration
+Complex Task (5+ steps)       → 🦑 Orchestrator-Workers
 Destructive Operation         → 🧙 Wizard Workflows (mandatory)
 Long-Running (>10 min)        → 🖥️ Multi-Window Context
 ```
@@ -219,7 +231,7 @@ Long-Running (>10 min)        → 🖥️ Multi-Window Context
 
 | Pattern | Claude | GPT Agents | Gemini ADK | LangGraph |
 |:--------|:------:|:----------:|:----------:|:---------:|
-| 🦑 Subagent Orchestration | ✅ | ✅ Handoffs | ✅ Multi-agent | ✅ Subgraphs |
+| 🦑 Orchestrator-Workers | ✅ | ✅ Handoffs | ✅ Multi-agent | ✅ Subgraphs |
 | 📚 Progressive Skills | ✅ | ❌ | ❌ | ❌ |
 | 🚂 Parallel Tool Calling | ✅ | ✅ | ✅ ParallelAgent | ✅ Fan-out |
 | 🧬 Master-Clone | ✅ | ✅ Dynamic | ✅ Custom | ✅ Send API |
@@ -248,15 +260,52 @@ Long-Running (>10 min)        → 🖥️ Multi-Window Context
 
 ```
 .
-├── README.md                           # This file
-├── 00-OVERVIEW.md                      # Entry point, quick reference
-├── 01-OFFICIAL-TERMINOLOGY.md          # Components, patterns, visual standards
-├── 02-LAYER-ARCHITECTURE.md            # 5-Layer system architecture
-├── 03-WORKFLOWS.md                         # Baseline + 5 Workflows + variants
-├── 04-AGENTS.md                            # Autonomous Agents + Multi-Window
-├── 05-USE-CASES.md                         # Real-world examples
-├── 06-SELECTION-GUIDE.md                   # Decision trees
-└── 07-MAPPING-GLOSSARY.md                  # Cross-reference & definitions
+├── README.md                              # This file
+├── concepts/                              # Agentic Systems theory
+│   ├── README.md                          # Main hub: Building Block → Workflows → Agents
+│   ├── workflows/                         # 7 workflow patterns
+│   │   ├── README.md                      # Decision tree, workflow index
+│   │   ├── 00-building-block.md           # Augmented LLM foundation
+│   │   ├── 01-baseline.md                 # Direct Execution
+│   │   ├── 02-prompt-chaining.md          # Sequential + Wizard variant
+│   │   ├── 03-routing.md                  # Classification routing
+│   │   ├── 04-parallelization.md          # Parallel + variants
+│   │   ├── 05-orchestrator-workers.md     # Subagent delegation
+│   │   └── 06-evaluator-optimizer.md      # Iterative improvement
+│   └── agents/                            # 2 agent patterns
+│       ├── README.md                      # Workflows vs Agents
+│       ├── autonomous-agents.md           # Self-directed agents
+│       └── multi-window-context.md        # Checkpointing
+├── implementation/                        # How to build
+│   ├── README.md                          # Components overview
+│   ├── components/                        # 4 Claude Code components
+│   │   ├── README.md                      # Comparison table
+│   │   ├── subagent.md                    # Task tool, permissions
+│   │   ├── slash-command.md               # User-invoked workflows
+│   │   ├── skill.md                       # Progressive loading
+│   │   └── hook.md                        # Event automation
+│   └── architecture/                      # 5-layer system
+│       ├── README.md                      # Layer overview
+│       ├── 01-user-layer.md               # Entry point
+│       ├── 02-main-agent-layer.md         # Orchestration
+│       ├── 03-delegation-layer.md         # Commands + Skills
+│       ├── 04-execution-layer.md          # Tools + Subagents
+│       └── 05-state-layer.md              # Persistence
+├── guides/                                # Practical guidance
+│   ├── README.md                          # Selection guide
+│   └── use-cases/                         # 6 validated examples
+│       ├── README.md                      # Quick reference
+│       ├── multi-agent-research.md
+│       ├── production-code-review.md
+│       ├── multi-locale-generation.md
+│       ├── intelligent-personal-assistant.md
+│       ├── customer-support-automation.md
+│       └── data-pipeline-migration.md
+└── reference/                             # Quick lookups
+    ├── README.md                          # Reference index
+    ├── glossary.md                        # A-Z definitions
+    ├── visual-standards.md                # Colors, emojis
+    └── built-in-subagents.md              # Pre-configured agents
 ```
 
 ---
