@@ -26,26 +26,57 @@ Because complex systems deserve simple explanations.</sub>
 ## Overview
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#8b5cf6', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#7c3aed', 'lineColor': '#a78bfa', 'secondaryColor': '#6366f1', 'tertiaryColor': '#ec4899', 'background': '#0f172a', 'mainBkg': '#1e293b', 'nodeBorder': '#7c3aed', 'clusterBkg': '#1e293b', 'titleColor': '#f8fafc', 'nodeTextColor': '#f8fafc'}}}%%
-mindmap
-  root((🐔 Agentic<br/>Systems))
-    🧱 Foundations
-      Augmented LLM
-    ⚙️ Workflows
-      🏎️ Baseline
-      ⛓️ Prompt Chaining
-      🚦 Routing
-      🛤️ Parallelization
-      🦑 Orchestrator
-      🩻 Evaluator
-    🐉 Agents
-      Autonomous
-      Multi-Window
-    🛠️ Implementation
-      🐦 Subagent
-      🦴 Command
-      📚 Skill
-      🪝 Hook
+%%{init: {'theme': 'dark'}}%%
+flowchart TB
+    ROOT((🐔 Agentic<br/>Systems))
+
+    ROOT --- F[🧱 Foundations]
+    ROOT --- W[⚙️ Workflows]
+    ROOT --- A[🐉 Agents]
+    ROOT --- I[🛠️ Implementation]
+
+    F --- F1[Augmented LLM]
+
+    W --- W1[🏎️ Baseline]
+    W --- W2[⛓️ Chaining]
+    W --- W3[🚦 Routing]
+    W --- W4[🛤️ Parallel]
+    W --- W5[🦑 Orchestrator]
+    W --- W6[🩻 Evaluator]
+
+    A --- A1[Autonomous]
+    A --- A2[Multi-Window]
+
+    I --- I1[🐦 Subagent]
+    I --- I2[🦴 Command]
+    I --- I3[📚 Skill]
+    I --- I4[🪝 Hook]
+
+    classDef root fill:#8b5cf6,stroke:#7c3aed,color:#fff,stroke-width:3px
+    classDef foundation fill:#6366f1,stroke:#4f46e5,color:#fff
+    classDef workflow fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    classDef agent fill:#ec4899,stroke:#db2777,color:#fff
+    classDef impl fill:#14b8a6,stroke:#0d9488,color:#fff
+    classDef leaf fill:#1e293b,stroke:#475569,color:#f1f5f9
+
+    ROOT:::root
+    F:::foundation
+    W:::workflow
+    A:::agent
+    I:::impl
+    F1:::leaf
+    W1:::leaf
+    W2:::leaf
+    W3:::leaf
+    W4:::leaf
+    W5:::leaf
+    W6:::leaf
+    A1:::leaf
+    A2:::leaf
+    I1:::leaf
+    I2:::leaf
+    I3:::leaf
+    I4:::leaf
 ```
 
 ---
