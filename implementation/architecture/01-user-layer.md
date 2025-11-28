@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../../README.md) • [🔧 Implementation](../README.md) • [🏛️ Architecture](./) • **🙋‍♀️ Layer 1: User**
+[🏠 Home](../../README.md) › [🔧 Implementation](../README.md) › [🏛️ Architecture](./) › **🙋‍♀️ Layer 1: User**
+
+[← Architecture](./) ━━●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [🐔 Main Agent Layer →](02-main-agent-layer.md)
 
 </div>
 
@@ -115,8 +117,6 @@ File contents are injected into context for the 🐔 Main Agent.
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[🏛️ Architecture](./) • [🐔 Main Agent Layer →](02-main-agent-layer.md)
+[← Architecture](./) ━━●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [🐔 Main Agent Layer →](02-main-agent-layer.md)
 
 </div>

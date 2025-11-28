@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../../README.md) • [🔧 Implementation](../README.md) • [🏛️ Architecture](./) • **🐔 Layer 2: Main Agent**
+[🏠 Home](../../README.md) › [🔧 Implementation](../README.md) › [🏛️ Architecture](./) › **🐔 Layer 2: Main Agent**
+
+[← 🙋‍♀️ User Layer](01-user-layer.md) ━━━━━━━━━━●━━━━━━━━━━━━━━━━━━━━━━━━ [🔀 Delegation Layer →](03-delegation-layer.md)
 
 </div>
 
@@ -160,8 +162,6 @@ Input: "Fix the login bug and add tests"
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[← 🙋‍♀️ User Layer](01-user-layer.md) • [🏛️ Architecture](./) • [🔀 Delegation Layer →](03-delegation-layer.md)
+[← 🙋‍♀️ User Layer](01-user-layer.md) ━━━━━━━━━━●━━━━━━━━━━━━━━━━━━━━━━━━ [🔀 Delegation Layer →](03-delegation-layer.md)
 
 </div>

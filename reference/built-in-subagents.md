@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../README.md) • [📖 Reference](./) • **Built-in Subagents**
+[🏠 Home](../README.md) › [📖 Reference](./) › **Built-in Subagents**
+
+[← Visual Standards](visual-standards.md) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━●━━ [Reference →](./)
 
 </div>
 
@@ -267,8 +269,6 @@ Task(
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[← Visual Standards](visual-standards.md) • [📖 Reference](./)
+[← Visual Standards](visual-standards.md) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━●━━ [Reference →](./)
 
 </div>

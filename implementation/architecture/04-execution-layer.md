@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../../README.md) • [🔧 Implementation](../README.md) • [🏛️ Architecture](./) • **⚡ Layer 4: Execution**
+[🏠 Home](../../README.md) › [🔧 Implementation](../README.md) › [🏛️ Architecture](./) › **⚡ Layer 4: Execution**
+
+[← 🔀 Delegation Layer](03-delegation-layer.md) ━━━━━━━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━ [💾 State Layer →](05-state-layer.md)
 
 </div>
 
@@ -200,8 +202,6 @@ flowchart TB
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[← 🔀 Delegation Layer](03-delegation-layer.md) • [🏛️ Architecture](./) • [💾 State Layer →](05-state-layer.md)
+[← 🔀 Delegation Layer](03-delegation-layer.md) ━━━━━━━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━ [💾 State Layer →](05-state-layer.md)
 
 </div>

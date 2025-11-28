@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../README.md) • [📖 Reference](./) • **Visual Standards**
+[🏠 Home](../README.md) › [📖 Reference](./) › **Visual Standards**
+
+[← Glossary](glossary.md) ━━━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━━━━━ [Built-in Subagents →](built-in-subagents.md)
 
 </div>
 
@@ -304,8 +306,6 @@ Users run the generate command.
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[← Glossary](glossary.md) • [📖 Reference](./) • [Built-in Subagents →](built-in-subagents.md)
+[← Glossary](glossary.md) ━━━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━━━━━ [Built-in Subagents →](built-in-subagents.md)
 
 </div>

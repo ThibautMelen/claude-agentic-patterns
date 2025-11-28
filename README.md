@@ -153,15 +153,15 @@ flowchart LR
 
 | Situation | → Use |
 |-----------|-------|
-| Simple task (1 step) | 🏎️ Baseline |
-| Sequential (2-4 steps) | ⛓️ Prompt Chaining |
-| Categorize inputs | 🚦 Routing |
-| Independent subtasks | 🛤️ Parallelization |
-| Multiple specialists | 🦑 Orchestrator-Workers |
-| Quality iteration | 🩻 Evaluator-Optimizer |
-| Open-ended / unknown steps | 🐉 Autonomous Agent |
-| Destructive operations | 🧙 Wizard (human checkpoints) |
-| Long-running (>10 min) | 🖥️ Multi-Window Context |
+| Simple task (1 step) | [🏎️ Baseline](workflows/00-baseline.md) |
+| Sequential (2-4 steps) | [⛓️ Prompt Chaining](workflows/01-prompt-chaining.md) |
+| Categorize inputs | [🚦 Routing](workflows/02-routing.md) |
+| Independent subtasks | [🛤️ Parallelization](workflows/03-parallelization.md) |
+| Multiple specialists | [🦑 Orchestrator-Workers](workflows/04-orchestrator-workers.md) |
+| Quality iteration | [🩻 Evaluator-Optimizer](workflows/05-evaluator-optimizer.md) |
+| Open-ended / unknown steps | [🐉 Autonomous Agent](agents/autonomous.md) |
+| Destructive operations | [🧙 Wizard](workflows/01-prompt-chaining.md#advanced-wizard-pattern) |
+| Long-running (>10 min) | [🖥️ Multi-Window Context](agents/multi-window.md) |
 
 ---
 

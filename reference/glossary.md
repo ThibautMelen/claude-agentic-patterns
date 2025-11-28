@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../README.md) • [📖 Reference](./) • **Glossary A-Z**
+[🏠 Home](../README.md) › [📖 Reference](./) › **Glossary A-Z**
+
+[← Reference](./) ━━●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [Visual Standards →](visual-standards.md)
 
 </div>
 
@@ -361,8 +363,6 @@ Task(
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[📖 Reference](./) • [Visual Standards →](visual-standards.md)
+[← Reference](./) ━━●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [Visual Standards →](visual-standards.md)
 
 </div>

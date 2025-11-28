@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../../README.md) • [🔧 Implementation](../README.md) • [🏛️ Architecture](./) • **💾 Layer 5: State**
+[🏠 Home](../../README.md) › [🔧 Implementation](../README.md) › [🏛️ Architecture](./) › **💾 Layer 5: State**
+
+[← ⚡ Execution Layer](04-execution-layer.md) ━━━━━━━━━━━━━━━━━━━━━━━━━━●━━━━━━━━━ [Architecture →](./)
 
 </div>
 
@@ -213,8 +215,6 @@ sequenceDiagram
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[← ⚡ Execution Layer](04-execution-layer.md) • [🏛️ Architecture](./)
+[← ⚡ Execution Layer](04-execution-layer.md) ━━━━━━━━━━━━━━━━━━━━━━━━━━●━━━━━━━━━ [Architecture →](./)
 
 </div>

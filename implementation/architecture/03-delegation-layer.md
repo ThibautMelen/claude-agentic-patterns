@@ -1,6 +1,8 @@
 <div align="center">
 
-[🏠 Home](../../README.md) • [🔧 Implementation](../README.md) • [🏛️ Architecture](./) • **🔀 Layer 3: Delegation**
+[🏠 Home](../../README.md) › [🔧 Implementation](../README.md) › [🏛️ Architecture](./) › **🔀 Layer 3: Delegation**
+
+[← 🐔 Main Agent Layer](02-main-agent-layer.md) ━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━━━━━━━ [⚡ Execution Layer →](04-execution-layer.md)
 
 </div>
 
@@ -149,8 +151,6 @@ description: Use when implementing features - write tests first, then code
 
 <div align="center">
 
-**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━**
-
-[← 🐔 Main Agent Layer](02-main-agent-layer.md) • [🏛️ Architecture](./) • [⚡ Execution Layer →](04-execution-layer.md)
+[← 🐔 Main Agent Layer](02-main-agent-layer.md) ━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━━━━━━━ [⚡ Execution Layer →](04-execution-layer.md)
 
 </div>
